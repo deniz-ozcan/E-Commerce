@@ -59,7 +59,7 @@
     <li>Build the project with ide or cmd</li>
     <ul>
         <li> Open the location where all the documents are located in visual studio code, visual studio, cmd or terminal.</li>
-        <li> dotnet runserver --project ../scrapapp.webui </li>
+        <li> dotnet run --project scrapapp.webui </li>
         <li> Run this line of code in command line of ide or Cmd or terminal.</li>
         <li> You can see the website on localhost in your browser</li>
     </ul>
