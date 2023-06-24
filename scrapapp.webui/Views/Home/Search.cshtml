@@ -1,0 +1,42 @@
+@model List<Product>
+@section title {<title>Search | ScrapApp</title>}
+<div class="container mt-3" style='Display: flex; Align-items: center; Justify-content: center;'>
+  <div class="row">
+    <div class="card-group wrapper">
+      @if(Model.Count == 0)
+      {
+        <h1 class="alert alert-warning text-center m-0">
+          The Product you searched is not found.
+        </h1>
+      }
+      else{
+        @foreach (var proc in Model)
+        {
+          string cls = "";
+          if(proc.is_updated==true){
+            cls = "bg-primary";
+          }
+          <a asp-controller="Home" asp-action="Detail" asp-route-slug="@proc.Detail.Slug" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
+            <div class="card mb-3 me-3 border-info @cls popupcard">
+              <img src="@proc.Detail.Image" alt="" class="card-img-top img-fluid img-thumbnail"/>
+              <div class="card-body">
+                <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">@proc.Detail.Name</p>
+                <p class="card-title fs-6 info" style="color:#fff;display:inline;font-size:1rem;">@proc.Detail.Model @proc.Detail.Ram RAM @proc.Detail.Storage SSD @proc.Detail.Processor @proc.Detail.System @proc.Detail.Screen</p>
+                <div class="list-group list-group-horizontal">
+                  @if ((int)proc.Rate > 0 ){
+                    <li class="list-group-item p-0 pt-2 itemsing1" style="font-size:1rem;border:none;">
+                    <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
+                      @for (int i = 0; i < (int)proc.Rate ; i++){<li>★</li>}
+                    </ul>
+                    </li>
+                  }
+                  <li class="list-group-item ms-auto itemsing2" style="font-weight: 700;font-size:1rem;border:none;color:#f27a1a"> @((int)proc.Price) TL</li>
+                </div>
+              </div>
+            </div>
+          </a>
+        }
+      }
+    </div>
+  </div>
+</div>

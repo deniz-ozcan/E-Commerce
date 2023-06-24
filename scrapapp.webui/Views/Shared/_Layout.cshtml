@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="icon" href="~/img/python.svg" type="image/x-icon">
+    @RenderSection("title", required: true)
+    <style>
+      body {background-color: #fff!important;}
+      .btnhover:hover{background-color: #00000010!important;}
+      .accordion-item {background-color: #fff;border: 0px solid #00000020; }
+      .accordion-button:not(.collapsed) {color: #ff8800;background-color: #fff;box-shadow: none;}
+      .accordion-button:focus {z-index: 3;background-color: #fff;border-color: #fff;outline: 0;box-shadow: none;}
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+    </style>
+    @RenderSection("css_files", required: false)
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-dark bg-dark navbar-expand-md">
+      <div class="container">
+        <a class="navbar-brand" href="/Home" style="color: #F50057;">ScrapApp</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/Home">Products</a>
+            </li>
+          </ul>
+          <div class="input-group justify-content-center">
+            <form action="/Home/Search" class="d-flex">
+              <input class="form-control me-2" name="q" type="text" placeholder="Search Products" aria-label="Search">
+              <button class="btn btn-success" type="submit">Search</button>
+            </form>
+          </div>
+          @* <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Register</a>
+              </li>
+            {% endif %}
+            {% if user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">Admin</a>
+              </li>  
+            {% endif %}
+          </ul> *@
+        </div>
+      </div>
+    </nav>
+    @RenderBody()
+    <footer id="footer" class="py-5 bg-dark text-white text-center">Scrap App</footer>
+    @RenderSection("JavaScript",false)
+    <script src="~/js/bootstrap.min.js"></script>
+</body>
+</html>

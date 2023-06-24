@@ -1,0 +1,79 @@
+@model Product
+@section title {<title>Detail | ScrapApp</title>}
+@section css_files {
+<style>
+  .colorme{transition: all 0.4s ease-out;}
+  .colorme:hover{transform: translate(10px,-10PX);}
+  .img-thumbnail{border:none;}
+</style>
+}
+<div class="container mt-3">
+  <div class="row">
+    <div class="d-flex justify-content-end mb-3">
+        <div class="dropdown rounded-4">
+            <a class="btn btn-md dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#20c997;color:white;--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Sort By</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">High Price</a></li>
+                <li><a class="dropdown-item" href="#">Low Price</a></li>
+                <li><a class="dropdown-item" href="#">High Rate</a></li>
+                <li><a class="dropdown-item" href="#">Low Rate</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-3">
+            <img src="@Model.Detail.Image" alt="@Model.Detail.Name" class="card-img-top img-fluid img-thumbnail"/>
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <div class="list-group list-group-flush fs-5">
+              <li class="list-group-item" style="border:none;">Brand: <h1 class="fs-4" style="color:#F50057;display:inline;">@Model.Detail.Name</h1></li>
+              <li class="list-group-item" style="border:none;color:#666;">Model: @Model.Detail.Model</li>
+              <li class="list-group-item" style="border:none;color:#666;">Ram: @Model.Detail.Ram  </li>
+              <li class="list-group-item" style="border:none;color:#666;">Storage: @Model.Detail.Storage SSD</li>
+              <li class="list-group-item" style="border:none;color:#666;">Processor: @Model.Detail.Processor</li>
+              <li class="list-group-item" style="border:none;color:#666;">System: @Model.Detail.System</li>
+              <li class="list-group-item" style="border:none;color:#666;">Screen: @Model.Detail.Screen</li>
+            </div>
+          </div>
+          <div class="list-group list-group-flush list-group-horizontal mb-4">
+            @foreach (var site in Model.SitesInformation)
+            {
+              <li class="list-group-item" style="border:none;">
+                <ul class="list-group colorme">
+                  <a href="@site.Link" class="list-group-item">
+                    <img src="~/img/@(site.SiteName).svg" alt="" style="width:5rem;" />
+                    @if ((int)site.Rate > 0 ){
+                      <li class="list-group-item p-0 pt-2" style="font-size:1rem;border:none;">
+                        <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
+                          @for (int i = 0; i < (int)site.Rate ; i++){<li>★</li>}
+                        </ul>
+                      </li>
+                    }
+                    <li class="list-group-item ms-auto" style="font-weight: 700;font-size:1rem;border:none;color:#f27a1a">@((int)site.Price) ₺</li>
+                  </a>
+                </ul>
+              </li>
+            }
+          </div>
+          <div class="list-group list-group-horizontal">
+              @if ((int)Model.Rate > 0 ){
+                <li class="list-group-item p-0 pt-2 fs-4 ms-5" style="font-size:1rem;border:none;">
+                  <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
+                    @for (int i = 0; i < (int)Model.Rate ; i++){<li>★</li>}
+                  </ul>
+                </li>
+              }
+              <li class="list-group-item me-5 fs-4" style="font-weight: 700;font-size:1rem;border:none;color:#f27a1a">@((int)Model.Price) ₺</li>
+          </div>
+          <div class="input-group justify-content-center mb-3">
+              <button class="btn btn-primary btn-lg" type="submit" style="min-width:100px;background-color:#f27a1a">Buy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+@model Dictionary<string, List<string>>
+<div class="filtme justify-content-center">
+  <form class="list-group align-self-center" action="/Home/FilterProducts">
+    <div class="accordion accordion-container" id="acco" style="min-width: 245px;">
+      @foreach (var item in Model)
+      {
+        string c1 = "collapsed";
+        string c2 = "false";
+        string c3 = "";
+        @if(item.Key == "Brand" || item.Key == "Storage" || item.Key == "System"){
+          c1 = "";
+          c2 = "true";
+          c3 = "show";
+        }
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button btnhover @c1" type="button" data-bs-toggle="collapse" data-bs-target="#@item.Key" aria-expanded="@c2" aria-controls="@item.Key">
+              @item.Key
+            </button>
+          </h2>
+          <div id="@item.Key" class="accordion-collapse collapse @c3">
+            <div class="accordion-body"  id="s_@item.Key">
+              <input type="email" class="form-control mb-3" id="s_@item.Key.ToLower()" placeholder="Search">
+              @foreach (string value in item.Value)
+              {
+                <div class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" value="@value" id="check_@value">
+                  <label class="form-check-label" for="check_@value">
+                    @value
+                  </label>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button btnhover collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Price" aria-expanded="false" aria-controls="Price">
+            Price
+          </button>
+        </h2>
+        <div id="Price" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            <div class="input-group mb-3">
+              <input type="number" class="form-control" placeholder="Min" aria-label="min_price" id="min_price">
+              <span class="input-group-text">₺</span>
+              <input type="number" class="form-control" placeholder="Max" aria-label="max_price" id="max_price">
+              <span class="input-group-text">₺</span>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="price_rad" id="rad_1" value="0-12500">
+              <label class="form-check-label" for="rad_1">0 ₺ - 12500 ₺</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="price_rad" id="rad_2" value="12500-20000">
+              <label class="form-check-label" for="rad_2">12500 ₺ - 20000 ₺</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="price_rad" id="rad_3" value="20000-25000">
+              <label class="form-check-label" for="rad_3">20000 ₺ - 25000 ₺</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="price_rad" id="rad_4" value="25000-35000">
+              <label class="form-check-label" for="rad_4">25000 ₺ - 35000 ₺</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="price_rad" id="rad_5" value="35000-60000">
+              <label class="form-check-label" for="rad_5">35000 ₺ - 60000 ₺</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="price_rad" id="rad_6" value="60000-500000">
+              <label class="form-check-label" for="rad_6">60000 ₺ - 500000 ₺</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button btnhover collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Rate" aria-expanded="false" aria-controls="Rate">
+            Rate
+          </button>
+        </h2>
+        <div id="Rate" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            @for (int i = 5; i > 0; i--){
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rate_rad" id="rate_rad_@i" value="@i">
+              <label class="form-check-label" for="rate_rad_@i">
+                <ul class="list-group list-group-horizontal" style="list-style-type: none;">
+                  @for (int j = 0; j < i; j++){<li style="color:#FFC000;">★</li>}
+                  @for (int k = 0; k < 5-i; k++){<li style="color:#D8D8D8;">★</li>}
+                </ul>
+                </label>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="list-group-item" type="submit" style="border: none;">
+      <li class="btn btn-outline-info">Search</li>
+    </button>
+  </form>
+</div>
