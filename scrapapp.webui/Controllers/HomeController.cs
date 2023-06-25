@@ -36,34 +36,22 @@ namespace scrapapp.webui.Controllers
             return View(_productService.GetByslug(slug));
         }
 
-        public IActionResult FilterProducts(string brand, string system, string storage, string ram, string screen, double? min_price, double? max_price, double? rate, int page = 1)
+        public IActionResult FilterProducts(string search, List<string> brand, List<string> system, List<string> storage, List<string> ram, List<string> screen, double? min_price, double? max_price, double? rate, string sort,int page = 1)
         {
+            Dictionary<string, List<string>> categories = new Dictionary<string, List<string>>{{"Brand",brand},{"System",system},{"Storage",storage},{"Ram",ram},{"Screen",screen}};
+            var products = _productService.GetByFilter(search, categories, min_price, max_price, rate, sort, page, 24);
+            var totatItems = _productService.GetCountsByFilter(search, categories, min_price, max_price, rate);
             var productViewModel = new ProductViewModel()
             {
                 PageInfo = new PageInfo()
                 {
-                    TotalItems = _productService.GetCountsByFilter(brand, system, storage, ram, screen, min_price, max_price, rate),
+                    TotalItems = totatItems,
                     CurrentPage = page,
                     ItemsPerPage = 24,
                 },
-                Products = _productService.GetByFilter(brand, system, storage, ram, screen, min_price, max_price, rate, page, 24)
+                Products = products
             };
-            return View("Index",productViewModel);
-        }
-        [HttpGet]
-        public IActionResult Search(string q, int page = 1)
-        {
-            var productViewModel = new ProductViewModel()
-            {
-                PageInfo = new PageInfo()
-                {
-                    TotalItems = _productService.GetCounts(),
-                    CurrentPage = page,
-                    ItemsPerPage = 24,
-                },
-                Products = _productService.GetBySearch(q, page, 24)
-            };
-            return View(_productService.GetAll(1, 24));
+            return View("Index", productViewModel);
         }
     }
 }

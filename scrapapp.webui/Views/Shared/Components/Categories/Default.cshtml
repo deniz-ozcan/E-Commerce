@@ -14,9 +14,7 @@
         }
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button btnhover @c1" type="button" data-bs-toggle="collapse" data-bs-target="#@item.Key" aria-expanded="@c2" aria-controls="@item.Key">
-              @item.Key
-            </button>
+            <button class="accordion-button btnhover @c1" type="button" data-bs-toggle="collapse" data-bs-target="#@item.Key" aria-expanded="@c2" aria-controls="@item.Key">@item.Key</button>
           </h2>
           <div id="@item.Key" class="accordion-collapse collapse @c3">
             <div class="accordion-body"  id="s_@item.Key">
@@ -24,10 +22,8 @@
               @foreach (string value in item.Value)
               {
                 <div class="form-check mb-0">
-                  <input class="form-check-input" type="checkbox" value="@value" id="check_@value">
-                  <label class="form-check-label" for="check_@value">
-                    @value
-                  </label>
+                  <input class="form-check-input" type="checkbox" value="@value" id="check_@value" name="@item.Key">
+                  <label class="form-check-label" for="check_@value">@value</label>
                 </div>
               }
             </div>
@@ -43,9 +39,9 @@
         <div id="Price" class="accordion-collapse collapse">
           <div class="accordion-body">
             <div class="input-group mb-3">
-              <input type="number" class="form-control" placeholder="Min" aria-label="min_price" id="min_price">
+              <input type="number" class="form-control" placeholder="Min" aria-label="min_price" id="min_price" name="min_price">
               <span class="input-group-text">₺</span>
-              <input type="number" class="form-control" placeholder="Max" aria-label="max_price" id="max_price">
+              <input type="number" class="form-control" placeholder="Max" aria-label="max_price" id="max_price" name="max_price">
               <span class="input-group-text">₺</span>
             </div>
             <div class="form-check">
@@ -77,9 +73,7 @@
       </div>
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button btnhover collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Rate" aria-expanded="false" aria-controls="Rate">
-            Rate
-          </button>
+          <button class="accordion-button btnhover collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Rate" aria-expanded="false" aria-controls="Rate">Rate</button>
         </h2>
         <div id="Rate" class="accordion-collapse collapse">
           <div class="accordion-body">

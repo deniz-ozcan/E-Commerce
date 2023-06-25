@@ -126,3 +126,16 @@
   margin-right: 0px;
   --bs-gutter-x: 10px;
 }
+
+.form-select:focus {
+  border-color: #fff;
+  outline: 0;
+  box-shadow: none;
+}
+.form-select{
+  display: block;
+  width: 12%;
+  text-align: center;
+  padding: .375rem 0.5rem .375rem .01rem;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>")  ;
+}

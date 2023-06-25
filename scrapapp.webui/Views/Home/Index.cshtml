@@ -8,15 +8,13 @@
     <div class="col-9" style="min-width:1050px;">
       <div class="row">
         <div class="d-flex justify-content-end" style="margin-bottom: 5px;">
-          <div class="dropdown rounded-4">
-            <a class="btn btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#20c997;color:white;--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .25rem; --bs-btn-font-size: .75rem;">Sort By</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">High Price</a></li>
-              <li><a class="dropdown-item" href="#">Low Price</a></li>
-              <li><a class="dropdown-item" href="#">High Rate</a></li>
-              <li><a class="dropdown-item" href="#">Low Rate</a></li>
-            </ul>
-          </div>
+              <select class="form-select" style="background-color:#20c997;color:#fff;">
+                <option value="" selected disabled>Sort By</option>
+                <option value="PRICE_BY_ASC">High Price</option>
+                <option value="PRICE_BY_DESC">Low Price</option>
+                <option value="RATE_BY_ASC">High Rate</option>
+                <option value="RATE_BY_DESC">Low Rate</option>
+              </select>
         </div>
       </div>
       <div class="card-group">
@@ -107,7 +105,6 @@
   var div3 = document.getElementById("s_Storage");
   var div4 = document.getElementById("s_Brand");
   var div5 = document.getElementById("s_Ram");
-  var inp6 = document.getElementById("check_APPLE");
   var div6 = document.getElementById("s_APPLE");
   inp1.addEventListener('keyup', (evt) => {for (let i = 1; i < div1.childElementCount; i++) {div1.children[i].textContent.trim().toLocaleUpperCase().includes(inp1.value.trim().toLocaleUpperCase()) ? (div1.children[i].style.display = "block") : (div1.children[i].style.display = "none");}});
   inp2.addEventListener('keyup', (evt) => {for (let i = 1; i < div2.childElementCount; i++) {div2.children[i].textContent.trim().toLocaleUpperCase().includes(inp2.value.trim().toLocaleUpperCase()) ? (div2.children[i].style.display = "block") : (div2.children[i].style.display = "none");}});
@@ -115,21 +112,6 @@
   inp4.addEventListener('keyup', (evt) => {for (let i = 1; i < div4.childElementCount; i++) {div4.children[i].textContent.trim().toLocaleUpperCase().includes(inp4.value.trim().toLocaleUpperCase()) ? (div4.children[i].style.display = "block") : (div4.children[i].style.display = "none");}});
   inp5.addEventListener('keyup', (evt) => {for (let i = 1; i < div5.childElementCount; i++) {div5.children[i].textContent.trim().toLocaleUpperCase().includes(inp5.value.trim().toLocaleUpperCase()) ? (div5.children[i].style.display = "block") : (div5.children[i].style.display = "none");}});
   inp5.addEventListener('keyup', (evt) => {for (let i = 1; i < div6.childElementCount; i++) {div5.children[i].textContent.trim().toLocaleUpperCase().includes(inp5.value.trim().toLocaleUpperCase()) ? (div5.children[i].style.display = "block") : (div5.children[i].style.display = "none");}});
-  inp6.addEventListener("change", (evt) => {
-    if(inp6.checked == true){
-      for (let i = 1; i < div2.childElementCount; i++) {
-        div2.children[i].textContent
-          .trim()
-          .includes("MACOS")
-          ? (div2.children[i].style.display = "block")
-          : (div2.children[i].style.display = "none");
-      }
-    }else{
-      for (let i = 1; i < div2.childElementCount; i++) {
-        div2.children[i].style.display = "block"
-      }
-    }
-  });
   var elms = document.getElementsByName("price_rad");
   for (let i = 0; i < 6; i++){
     elms[i].addEventListener("change", (evt) => {
@@ -139,5 +121,14 @@
       }
     });
   }
+  document.addEventListener('DOMContentLoaded', function() {
+  var queryString = window.location.search;
+  var params = new URLSearchParams(queryString);
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(function(checkbox) {
+    var value = checkbox.value;
+    checkbox.checked = params.has(value);
+  });
+});
 </script>
 }

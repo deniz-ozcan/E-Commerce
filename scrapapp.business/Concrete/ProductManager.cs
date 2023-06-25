@@ -35,17 +35,13 @@ namespace scrapapp.business.Concrete
         {
             return _product.GetCounts();
         }
-        public int GetCountsByFilter(string brand, string system, string storage, string ram, string screen, double? min_price, double? max_price, double? rate)
+        public int GetCountsByFilter(string search, Dictionary<string, List<string>> categories, double? min_price, double? max_price, double? rate)
         {
-            return _product.GetCountsByFilter(brand, system, storage, ram, screen, min_price, max_price, rate);
+            return _product.GetCountsByFilter(search, categories, min_price, max_price, rate);
         }
-        public List<Product> GetByFilter(string brand, string system, string storage, string ram, string screen, double? min_price, double? max_price, double? rate,int page, int pageSize)
+        public List<Product> GetByFilter(string search, Dictionary<string, List<string>> categories, double? min_price, double? max_price, double? rate, string sort, int page, int pageSize)
         {
-            return _product.GetByFilter(brand, system, storage, ram, screen, min_price, max_price, rate, page, pageSize);
-        }
-        public List<Product> GetBySearch(string q, int page, int pageSize)
-        {
-            return _product.GetBySearch(q, page, pageSize);
+            return _product.GetByFilter(search, categories, min_price, max_price, rate, sort, page, pageSize);
         }
     }
 }
