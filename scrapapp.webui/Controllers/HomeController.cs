@@ -20,7 +20,6 @@ namespace scrapapp.webui.Controllers
                 PageInfo = new PageInfo() { TotalItems = _productService.GetCounts(), CurrentPage = page, ItemsPerPage = 24 },
                 categories = categories.categories,
                 Products = _productService.GetAll(page, 24)
-
             };
             return View(productViewModel);
         }

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/fontawesome.css">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="icon" href="~/img/python.svg" type="image/x-icon">
     @RenderSection("title", required: true)
@@ -44,25 +45,20 @@
               <button class="btn btn-success" type="submit">Search</button>
             </form>
           </div>
-          @* <ul class="navbar-nav ms-auto">
-            {% if user.is_authenticated %}
+          <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a asp-controller="Admin" asp-action="Index" class="nav-link">Logout</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Register</a>
+                <a asp-controller="Admin" asp-action="Index" class="nav-link">Login</a>
               </li>
-            {% endif %}
-            {% if user.is_superuser %}
               <li class="nav-item">
-                <a class="nav-link" href="#">Admin</a>
+                <a asp-controller="Admin" asp-action="Index" class="nav-link">Register</a>
+              </li>
+              <li class="nav-item">
+                <a asp-controller="Admin" asp-action="Index" class="nav-link">Admin</a>
               </li>  
-            {% endif %}
-          </ul> *@
+          </ul>
         </div>
       </div>
     </nav>
