@@ -26,11 +26,11 @@ namespace scrapapp.data.Concrete.EfCore
         }
         public List<Product> GetByFilter(string search, Dictionary<string, List<string>> categories, double? min_price, double? max_price, double? rate, string sort, int page, int pageSize)
         {
-            List<string> Brand = categories["Brand"];//Apple, Msi, Lenovo etc.
-            List<string> Storage = categories["Storage"];//256GB, 512GB, 1TB etc.
-            List<string> Screen = categories["Screen"];//13INC, 15.6INC, 17.6INC etc.
-            List<string> System = categories["System"];//Macos, Freedos, windows 10 etc.
-            List<string> Ram = categories["Ram"];//8GB, 16GB, 32GB etc.
+            List<string> Brand = categories["Brand"];
+            List<string> Storage = categories["Storage"];
+            List<string> Screen = categories["Screen"];
+            List<string> System = categories["System"];
+            List<string> Ram = categories["Ram"];
 
             using (var context = new ShopContext())
             {
@@ -100,11 +100,11 @@ namespace scrapapp.data.Concrete.EfCore
         
         public int GetCountsByFilter(string search, Dictionary<string, List<string>> categories, double? min_price, double? max_price, double? rate)
         {
-            List<string> Brand = categories["Brand"];//Apple, Msi, Lenovo etc.
-            List<string> Storage = categories["Storage"];//256GB, 512GB, 1TB etc.
-            List<string> Screen = categories["Screen"];//13INC, 15.6INC, 17.6INC etc.
-            List<string> System = categories["System"];//Macos, Freedos, windows 10 etc.
-            List<string> Ram = categories["Ram"];//8GB, 16GB, 32GB etc.
+            List<string> Brand = categories["Brand"];
+            List<string> Storage = categories["Storage"];
+            List<string> Screen = categories["Screen"];
+            List<string> System = categories["System"];
+            List<string> Ram = categories["Ram"];
 
             using (var context = new ShopContext())
             {

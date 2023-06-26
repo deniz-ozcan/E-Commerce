@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using scrapapp.entity;
 
-namespace scrapapp.webui.ViewModels
+namespace scrapapp.webui.Models
 {
     public class ProductViewModel
     {
         public PageInfo PageInfo { get; set; }
         public List<Product> Products { get; set; }
+        public Dictionary<string, List<Category>> categories { get; set; }
     }
 }

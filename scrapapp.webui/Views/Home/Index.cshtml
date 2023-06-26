@@ -3,17 +3,17 @@
 <div class="container-fluid mt-3">
   <div class="row">
     <div class="col-3" style="max-width:300px;">
-        @await Component.InvokeAsync("Categories")
+        @await Html.PartialAsync("_categories", Model.categories)
     </div>
     <div class="col-9" style="min-width:1050px;">
       <div class="row">
         <div class="d-flex justify-content-end" style="margin-bottom: 5px;">
               <select class="form-select" style="background-color:#20c997;color:#fff;">
                 <option value="" selected disabled>Sort By</option>
-                <option value="PRICE_BY_ASC">High Price</option>
-                <option value="PRICE_BY_DESC">Low Price</option>
-                <option value="RATE_BY_ASC">High Rate</option>
-                <option value="RATE_BY_DESC">Low Rate</option>
+                <option value="price_asc">High Price</option>
+                <option value="price_desc">Low Price</option>
+                <option value="rate_asc">High Rate</option>
+                <option value="rate_desc">Low Rate</option>
               </select>
         </div>
       </div>
@@ -63,12 +63,7 @@
     <ul class="pagination justify-content-center">
       @if(@Model.PageInfo.HasPrevious() == 1){
         <li class="page-item">
-          <a class="page-link" asp-controller="Home" asp-action="">
-              &laquo First Page
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="?page=@(Model.PageInfo.CurrentPage-1)">Previous</a>
+          <a class="page-link" asp-controller="Home" asp-action="">&laquo First Page</a>
         </li>
         <li class="page-item">
           <a class="page-link" href="?page=@(Model.PageInfo.CurrentPage-1)">@(Model.PageInfo.CurrentPage-1)</a>
@@ -80,9 +75,6 @@
       @if(Model.PageInfo.HasNext() == 1){
         <li class="page-item">
           <a class="page-link" href="?page=@(Model.PageInfo.CurrentPage+1)">@(Model.PageInfo.CurrentPage+1)</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="?page=@(Model.PageInfo.CurrentPage+1)">Next</a>
         </li>
         <li class="page-item">
           <a class="page-link" href="?page=@Model.PageInfo.TotalPages()">Last Page &raquo</a> 
@@ -112,23 +104,20 @@
   inp4.addEventListener('keyup', (evt) => {for (let i = 1; i < div4.childElementCount; i++) {div4.children[i].textContent.trim().toLocaleUpperCase().includes(inp4.value.trim().toLocaleUpperCase()) ? (div4.children[i].style.display = "block") : (div4.children[i].style.display = "none");}});
   inp5.addEventListener('keyup', (evt) => {for (let i = 1; i < div5.childElementCount; i++) {div5.children[i].textContent.trim().toLocaleUpperCase().includes(inp5.value.trim().toLocaleUpperCase()) ? (div5.children[i].style.display = "block") : (div5.children[i].style.display = "none");}});
   inp5.addEventListener('keyup', (evt) => {for (let i = 1; i < div6.childElementCount; i++) {div5.children[i].textContent.trim().toLocaleUpperCase().includes(inp5.value.trim().toLocaleUpperCase()) ? (div5.children[i].style.display = "block") : (div5.children[i].style.display = "none");}});
-  var elms = document.getElementsByName("price_rad");
-  for (let i = 0; i < 6; i++){
-    elms[i].addEventListener("change", (evt) => {
-      if(elms[i].checked == true){
-        document.getElementById("min_price").value = elms[i].value.split("-")[0];
-        document.getElementById("max_price").value = elms[i].value.split("-")[1];
-      }
-    });
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-  var queryString = window.location.search;
-  var params = new URLSearchParams(queryString);
-  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(function(checkbox) {
-    var value = checkbox.value;
-    checkbox.checked = params.has(value);
-  });
-});
+  var elm1 = document.getElementsByClassName("getAllBrand");
+  var elm2 = document.getElementsByClassName("getAllSystem");
+  var elm3 = document.getElementsByClassName("getAllStorage");
+  var elm4 = document.getElementsByClassName("getAllRam");
+  var elm5 = document.getElementsByClassName("getAllScreen");
+  var brandlist = [];
+  for (let i = 0; i < elm1.length; i++){elm1[i].addEventListener('input', (evt) => {elm1[i].checked == true ? brandlist.push(elm1[i].value) : brandlist.pop(elm1[i].value);document.getElementsByName("Brand")[0].value = brandlist.toString();});}
+  var systemlist = [];
+  for (let i = 0; i < elm2.length; i++){elm2[i].addEventListener('input', (evt) => {elm2[i].checked == true ? systemlist.push(elm2[i].value) : systemlist.pop(elm2[i].value);document.getElementsByName("System")[0].value = systemlist.toString();});}
+  var storagelist = [];
+  for (let i = 0; i < elm3.length; i++){elm3[i].addEventListener('input', (evt) => {elm3[i].checked == true ? storagelist.push(elm3[i].value) : storagelist.pop(elm3[i].value);document.getElementsByName("Storage")[0].value = storagelist.toString();});}
+  var ramlist = [];
+  for (let i = 0; i < elm4.length; i++){elm4[i].addEventListener('input', (evt) => {elm4[i].checked == true ? ramlist.push(elm4[i].value) : ramlist.pop(elm4[i].value);document.getElementsByName("Ram")[0].value = ramlist.toString();});}
+  var screenlist = [];
+  for (let i = 0; i < elm5.length; i++){elm5[i].addEventListener('input', (evt) => {elm5[i].checked == true ? screenlist.push(elm5[i].value) : screenlist.pop(elm5[i].value);document.getElementsByName("Screen")[0].value = screenlist.toString();});}
 </script>
 }
