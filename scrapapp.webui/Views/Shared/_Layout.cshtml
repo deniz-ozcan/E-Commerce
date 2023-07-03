@@ -29,39 +29,67 @@
 <body>
     <nav class="navbar sticky-top navbar-dark bg-dark navbar-expand-md">
       <div class="container">
-        <a class="navbar-brand" href="/Home" style="color: #F50057;">ScrapApp</a>
+        <a class="navbar-brand" href="/" style="color: #F50057;">ScrapApp</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
-          <ul class="navbar-nav me-auto">
+          <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/Home">Products</a>
+              <a href="/products" class="nav-link">Products</a>
             </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+              <li class="nav-item">
+                <a href="/cart" class="nav-link">Cart</a>
+              </li>
+              <li class="nav-item">
+                <a href="/orders" class="nav-link">Orders</a>
+              </li>
+              if (User.IsInRole("admin"))
+              {
+                <li class="nav-item">
+                  <a asp-controller="Admin" asp-action="products" class="nav-link">Admin Products</a>
+                </li>
+                <li class="nav-item">
+                  <a asp-controller="Admin" asp-action="categories" class="nav-link">Admin Categories</a>
+                </li>
+                <li class="nav-item">
+                  <a href="Admin/role/list" class="nav-link">Roles</a>
+                </li>
+                <li class="nav-item">
+                  <a href="Admin/user/list" class="nav-link">Users</a>
+                </li>
+              }
+            }
           </ul>
-          <div class="input-group justify-content-center">
-            <form action="/Home/Search" class="d-flex">
-              <input class="form-control me-2" name="q" type="text" placeholder="Search Products" aria-label="Search">
-              <button class="btn btn-success" type="submit">Search</button>
-            </form>
-          </div>
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ml-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
               <li class="nav-item">
-                <a asp-controller="Admin" asp-action="Index" class="nav-link">Logout</a>
+                <a asp-controller="Account" asp-action="Manage" class="nav-link"> @User.Identity.Name </a>
               </li>
               <li class="nav-item">
-                <a asp-controller="Admin" asp-action="Index" class="nav-link">Login</a>
+                <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+              </li>
+            }
+            else
+            {
+              <li class="nav-item">
+                <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
               </li>
               <li class="nav-item">
-                <a asp-controller="Admin" asp-action="Index" class="nav-link">Register</a>
+                <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
               </li>
-              <li class="nav-item">
-                <a asp-controller="Admin" asp-action="Index" class="nav-link">Admin</a>
-              </li>  
+            }
           </ul>
         </div>
       </div>
     </nav>
+    @if(TempData["message"]!=null)
+    {
+        <partial name="_ResultMessage" model="@(TempData.Get<AlertMessage>("message"))"/>
+    }   
     @RenderBody()
     <footer id="footer" class="py-5 bg-dark text-white text-center">Scrap App</footer>
     @RenderSection("JavaScript",false)

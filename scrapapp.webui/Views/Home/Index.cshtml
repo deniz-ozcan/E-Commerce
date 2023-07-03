@@ -3,7 +3,7 @@
 <div class="container-fluid mt-3">
   <div class="row">
     <div class="col-3" style="max-width:300px;">
-        @await Html.PartialAsync("_categories", Model.categories)
+        @await Html.PartialAsync("_categories", Model.Categories)
     </div>
     <div class="col-9" style="min-width:1050px;">
       <div class="row">
@@ -61,63 +61,25 @@
   </div>
   <nav aria-label="Page navigation" class="mt-6">
     <ul class="pagination justify-content-center">
-      @if(@Model.PageInfo.HasPrevious() == 1){
-        <li class="page-item">
-          <a class="page-link" asp-controller="Home" asp-action="">&laquo First Page</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="?page=@(Model.PageInfo.CurrentPage-1)">@(Model.PageInfo.CurrentPage-1)</a>
-        </li>
-      }
-      <li class="page-item active" aria-current="page">
-        <a class="page-link" href="?page=@Model.PageInfo.CurrentPage">@Model.PageInfo.CurrentPage</a>
-      </li>
-      @if(Model.PageInfo.HasNext() == 1){
-        <li class="page-item">
-          <a class="page-link" href="?page=@(Model.PageInfo.CurrentPage+1)">@(Model.PageInfo.CurrentPage+1)</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="?page=@Model.PageInfo.TotalPages()">Last Page &raquo</a> 
-        </li>
-      }
+        @for (int i = 0; i < Model.PageInfo.TotalPages(); i++)
+        {
+            @if(String.IsNullOrEmpty(Model.PageInfo.CurrentCategory))
+            {
+                <li class="page-item @(Model.PageInfo.CurrentPage==i+1?"active":"")">
+                    <a class="page-link" href="/products?page=@(i+1)">
+                        @(i+1)
+                    </a>
+                </li>  
+            }
+            else
+            {
+                <li class="page-item @(Model.PageInfo.CurrentPage==i+1?"active":"")">
+                    <a class="page-link" href="/products/@Model.PageInfo.CurrentCategory?page=@(i+1)">
+                        @(i+1)
+                    </a>
+                </li> 
+            }
+        }
     </ul>
   </nav>
 </div>
-
-@section JavaScript{
-<script>
-  "use strict";
-  var inp1 = document.getElementById("s_screen");
-  var inp2 = document.getElementById("s_system");
-  var inp3 = document.getElementById("s_storage");
-  var inp4 = document.getElementById("s_brand");
-  var inp5 = document.getElementById("s_ram");
-  var div1 = document.getElementById("s_Screen");
-  var div2 = document.getElementById("s_System");
-  var div3 = document.getElementById("s_Storage");
-  var div4 = document.getElementById("s_Brand");
-  var div5 = document.getElementById("s_Ram");
-  var div6 = document.getElementById("s_APPLE");
-  inp1.addEventListener('keyup', (evt) => {for (let i = 1; i < div1.childElementCount; i++) {div1.children[i].textContent.trim().toLocaleUpperCase().includes(inp1.value.trim().toLocaleUpperCase()) ? (div1.children[i].style.display = "block") : (div1.children[i].style.display = "none");}});
-  inp2.addEventListener('keyup', (evt) => {for (let i = 1; i < div2.childElementCount; i++) {div2.children[i].textContent.trim().toLocaleUpperCase().includes(inp2.value.trim().toLocaleUpperCase()) ? (div2.children[i].style.display = "block") : (div2.children[i].style.display = "none");}});
-  inp3.addEventListener('keyup', (evt) => {for (let i = 1; i < div3.childElementCount; i++) {div3.children[i].textContent.trim().toLocaleUpperCase().includes(inp3.value.trim().toLocaleUpperCase()) ? (div3.children[i].style.display = "block") : (div3.children[i].style.display = "none");}});
-  inp4.addEventListener('keyup', (evt) => {for (let i = 1; i < div4.childElementCount; i++) {div4.children[i].textContent.trim().toLocaleUpperCase().includes(inp4.value.trim().toLocaleUpperCase()) ? (div4.children[i].style.display = "block") : (div4.children[i].style.display = "none");}});
-  inp5.addEventListener('keyup', (evt) => {for (let i = 1; i < div5.childElementCount; i++) {div5.children[i].textContent.trim().toLocaleUpperCase().includes(inp5.value.trim().toLocaleUpperCase()) ? (div5.children[i].style.display = "block") : (div5.children[i].style.display = "none");}});
-  inp5.addEventListener('keyup', (evt) => {for (let i = 1; i < div6.childElementCount; i++) {div5.children[i].textContent.trim().toLocaleUpperCase().includes(inp5.value.trim().toLocaleUpperCase()) ? (div5.children[i].style.display = "block") : (div5.children[i].style.display = "none");}});
-  var elm1 = document.getElementsByClassName("getAllBrand");
-  var elm2 = document.getElementsByClassName("getAllSystem");
-  var elm3 = document.getElementsByClassName("getAllStorage");
-  var elm4 = document.getElementsByClassName("getAllRam");
-  var elm5 = document.getElementsByClassName("getAllScreen");
-  var brandlist = [];
-  for (let i = 0; i < elm1.length; i++){elm1[i].addEventListener('input', (evt) => {elm1[i].checked == true ? brandlist.push(elm1[i].value) : brandlist.pop(elm1[i].value);document.getElementsByName("Brand")[0].value = brandlist.toString();});}
-  var systemlist = [];
-  for (let i = 0; i < elm2.length; i++){elm2[i].addEventListener('input', (evt) => {elm2[i].checked == true ? systemlist.push(elm2[i].value) : systemlist.pop(elm2[i].value);document.getElementsByName("System")[0].value = systemlist.toString();});}
-  var storagelist = [];
-  for (let i = 0; i < elm3.length; i++){elm3[i].addEventListener('input', (evt) => {elm3[i].checked == true ? storagelist.push(elm3[i].value) : storagelist.pop(elm3[i].value);document.getElementsByName("Storage")[0].value = storagelist.toString();});}
-  var ramlist = [];
-  for (let i = 0; i < elm4.length; i++){elm4[i].addEventListener('input', (evt) => {elm4[i].checked == true ? ramlist.push(elm4[i].value) : ramlist.pop(elm4[i].value);document.getElementsByName("Ram")[0].value = ramlist.toString();});}
-  var screenlist = [];
-  for (let i = 0; i < elm5.length; i++){elm5[i].addEventListener('input', (evt) => {elm5[i].checked == true ? screenlist.push(elm5[i].value) : screenlist.pop(elm5[i].value);document.getElementsByName("Screen")[0].value = screenlist.toString();});}
-</script>
-}

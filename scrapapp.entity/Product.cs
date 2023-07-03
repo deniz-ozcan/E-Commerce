@@ -9,6 +9,7 @@ namespace scrapapp.entity
     {
         public int ProductId { get; set; }
         [Required]
+        public int DetailId { get; set; }
         public Detail Detail { get; set; }
         [Required]
         public float Rate { get; set; }

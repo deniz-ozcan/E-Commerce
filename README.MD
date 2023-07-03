@@ -11,9 +11,7 @@
         <li><a href="#about-the-project"> ➤ About The Project</a></li>
         <li><a href="#overview"> ➤ Overview</a></li>
         <li><a href="#howtoinstall"> ➤ How to install</a></li>
-        <li>
-            <a href="#project-files-description"> ➤ Project Files Description</a>
-        </li>
+        <li><a href="#project-files-description"> ➤ Project Files Description</a></li>
         <li><a href="#Credits"> ➤ Credits</a></li>
     </ol>
 </details>
@@ -71,10 +69,11 @@
 <h2 id="project-files-description">📝 Project Files Description</h2>
 
 <ul>
-    <li><b>scrapp.webui:</b>This layer includes functionalities related to the web user interface (UI). It typically handles tasks such as creating web pages, managing user login and logout, and processing user interactions. This layer receives requests from web browsers, processes them, and sends the results back to the user. User interface code is used to create web pages using technologies like HTML, CSS, and JavaScript.</li>
-    <li><b>scrapp.entity:</b>This layer includes entity classes that represent database tables and data models. The data model defines how the data is structured and how it relates to each other. This layer uses Object-Relational Mapping (ORM) tools to interact with the database and perform database operations.</li>
-    <li><b>scrapp.data:</b>This layer contains data access code used to perform database operations. It includes tasks such as establishing a connection to the database, adding, updating, and deleting data. Database communication is typically done using ORM tools (such as Entity Framework or Dapper).In this case Entity Framework.</li>
-    <li><b>scrapp.business:</b>This layer encompasses the business logic and rules of the application. It houses the code responsible for executing the core functions of the application. It handles user requests, coordinates database operations, and manages business processes. This layer ensures that the application functions according to the business requirements and rules.</li>
+    <li><b>scrapapp.webui:</b>This layer includes functionalities related to the web user interface (UI). It typically handles tasks such as creating web pages, managing user login and logout, and processing user interactions. This layer receives requests from web browsers, processes them, and sends the results back to the user. User interface code is used to create web pages using technologies like HTML, CSS, and JavaScript.</li>
+    <li><b>scrapapp.entity:</b>This layer includes entity classes that represent database tables and data models. The data model defines how the data is structured and how it relates to each other. This layer uses Object-Relational Mapping (ORM) tools to interact with the database and perform database operations.</li>
+    <li><b>scrapapp.data:</b>This layer contains data access code used to perform database operations. It includes tasks such as establishing a connection to the database, adding, updating, and deleting data. Database communication is typically done using ORM tools (such as Entity Framework or Dapper).In this case Entity Framework.</li>
+    <li><b>scrapapp.business:</b>This layer encompasses the business logic and rules of the application. It houses the code responsible for executing the core functions of the application. It handles user requests, coordinates database operations, and manages business processes. This layer ensures that the application functions according to the business requirements and rules.</li>
+    <li><b>scrapapp.webapi:</b>This layer is that provides an interface for communicating with the outside world. This layer makes ScrapApp accessible to the external world, allowing other applications or services to interact with ScrapApp. For instance, a ScrapApp.WebAPI can enable other applications to use ScrapApp for data scraping from a specific website.</li>
 </ul>
 <p>The mentioned layers are typically used in a layered architecture model. This model enables better scalability, maintainability, and testability of the application. Each layer has distinct responsibilities, which helps in organizing and managing the code effectively.</p>
 

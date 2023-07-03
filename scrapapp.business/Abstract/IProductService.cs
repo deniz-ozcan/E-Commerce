@@ -1,16 +1,25 @@
 using scrapapp.entity;
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace scrapapp.business.Abstract
 {
-    public interface IProductService
+    public interface IProductService:IValidator<Product>
     {
-        Product GetByslug(string slug);
-        List<Product> GetAll(int page, int pageSize);
-        int GetCounts();
-        List<Product> GetByFilter(string search, Dictionary<string, List<string>> categories, double? min_price, double? max_price, double? rate, string sort, int page, int pageSize);
-        int GetCountsByFilter(string search, Dictionary<string, List<string>> categories, double? min_price, double? max_price, double? rate);
-        void Create(Product entity);
+        Task<Product> GetBySlug(string slug);
+        Product GetBySlugWithCategories(string slug);
+        Product GetProductDetails(string url);
+        List<Product> GetProductsByCategory(string name,int page,int pageSize);
+        int GetCountByCategory(string category);        
+        List<Product> GetSearchResult(string searchString);
+        Task<List<Product>> GetAll();
+        bool Create(Product entity);
+        Task<Product> CreateAsync(Product entity);
         void Update(Product entity);
-        void Delete(Product entity);
+        void Delete(Product entity);        
+        Task DeleteAsync(Product entity);        
+        Task UpdateAsync(Product entityToUpdate,Product entity);
+        bool Update(Product entity, int[] categoryIds);
     }
 }

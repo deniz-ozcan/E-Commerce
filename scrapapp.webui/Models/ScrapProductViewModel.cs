@@ -10,6 +10,6 @@ namespace scrapapp.webui.Models
     {
         public PageInfo PageInfo { get; set; }
         public List<Product> Products { get; set; }
-        public Dictionary<string, List<Category>> categories { get; set; }
+        public List<Category> Categories { get; set; }
     }
 }

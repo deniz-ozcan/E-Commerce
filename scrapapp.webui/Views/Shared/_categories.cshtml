@@ -1,8 +1,8 @@
-@model Dictionary<string, List<Category>>
+@model List<Category>
 <div class="filtme justify-content-center">
   <form class="list-group align-self-center" action="/Home/FilterProducts">
     <div class="accordion accordion-container" id="acco" style="min-width: 245px;">
-      @foreach (var item in Model)
+      @* @foreach (var item in Model)
       {
         string c1 = "collapsed";
         string c2 = "false";
@@ -30,7 +30,7 @@
             </div>
           </div>
         </div>
-      }
+      } *@
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button btnhover collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Price" aria-expanded="false" aria-controls="Price">

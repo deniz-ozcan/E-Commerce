@@ -22,6 +22,9 @@ namespace scrapapp.entity
         public string Image { get; set; }
         [Required]
         public string Slug { get; set; }
+        [Required]
+        public Product Product { get; set; }
+        public int ProductId { get; set; }
     }
 }
 
