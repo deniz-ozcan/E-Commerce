@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using scrapapp.business.Abstract;
-using scrapapp.data.Abstract;
 using scrapapp.entity;
 using scrapapp.webui.Models;
 
 namespace scrapapp.webui.Controllers
 {
-    // localhost:5000/home
     public class HomeController : Controller
     {
         private IProductService _productService;
@@ -20,13 +18,19 @@ namespace scrapapp.webui.Controllers
             this._productService = productService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string category,int page=1)
         {
-            var productViewModel = new ProductListViewModel()
+            return View(new ProductViewModel()
             {
-                Products = await _productService.GetAll()
-            };
-            return View(productViewModel);
+                PageInfo = new PageInfo()
+                {
+                    TotalItems = _productService.GetCountByCategory(category),
+                    CurrentPage = page,
+                    ItemsPerPage = 2,
+                    CurrentCategory = category
+                },
+                Products = _productService.GetProductsByCategory(category,page,2)
+            });
         }
 
         public async Task<IActionResult> RestApi()
@@ -42,6 +46,28 @@ namespace scrapapp.webui.Controllers
                 }
             }
             return View(products);
+        }
+        public IActionResult Detail(string slug)
+        {
+            if (slug==null)
+            {
+                return NotFound();
+            }
+            Product product = _productService.GetProductDetails(slug);
+            if(product==null)
+            {
+                return NotFound();
+            }
+            return View(new ProductViewModel{
+            });
+        }
+        public IActionResult Search(string q)
+        {
+            var productViewModel = new ProductViewModel()
+            {
+                Products = _productService.GetSearchResult(q)
+            };
+            return View("Index", productViewModel);
         }
     }
 }

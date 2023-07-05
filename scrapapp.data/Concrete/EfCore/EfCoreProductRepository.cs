@@ -52,7 +52,7 @@ namespace scrapapp.data.Concrete.EfCore
         public void Update(Product entity, int[] categoryIds)
         {
             var product = ShopContext.Products
-                    .FirstOrDefault(i => i.ProductId == entity.ProductId);
+                    .FirstOrDefault(i => i.Id == entity.Id);
             if (product != null)
             {
                 product.Detail.Name = entity.Detail.Name;

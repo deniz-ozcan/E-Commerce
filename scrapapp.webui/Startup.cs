@@ -116,89 +116,38 @@ namespace scrapapp.webui
                     defaults: new { controller = "Cart", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "adminuseredit",
-                    pattern: "admin/user/{id?}",
+                    name: "AdminProducts",
+                    pattern: "Admin/Products",
+                    defaults: new { controller = "Admin", action = "Products" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "AdminUserEdit",
+                    pattern: "Admin/User/{id?}",
                     defaults: new { controller = "Admin", action = "UserEdit" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "adminusers",
-                    pattern: "admin/user/list",
-                    defaults: new { controller = "Admin", action = "UserList" }
+                    name: "AdminUsers",
+                    pattern: "Admin/User/List",
+                    defaults: new { controller = "Admin", action = "Users" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "adminroles",
-                    pattern: "admin/role/list",
-                    defaults: new { controller = "Admin", action = "RoleList" }
+                    name: "AdminRoleEdit",
+                    pattern: "Admin/Role/{id?}",
+                    defaults: new { controller = "Admin", action = "RoleEdit" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "adminrolecreate",
-                    pattern: "admin/role/create",
+                    name: "AdminRoleCreate",
+                    pattern: "Admin/Role/Create",
                     defaults: new { controller = "Admin", action = "RoleCreate" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "adminroleedit",
-                    pattern: "admin/role/{id?}",
-                    defaults: new { controller = "Admin", action = "RoleEdit" }
+                    name: "AdminRoles",
+                    pattern: "Admin/Role/List",
+                    defaults: new { controller = "Admin", action = "Roles" }
                 );
-
-                endpoints.MapControllerRoute(
-                    name: "adminproducts",
-                    pattern: "admin/products",
-                    defaults: new { controller = "Admin", action = "ProductList" }
-                );
-
-                endpoints.MapControllerRoute(
-                    name: "adminproductcreate",
-                    pattern: "admin/products/create",
-                    defaults: new { controller = "Admin", action = "ProductCreate" }
-                );
-
-                endpoints.MapControllerRoute(
-                    name: "adminproductedit",
-                    pattern: "admin/products/{id?}",
-                    defaults: new { controller = "Admin", action = "ProductEdit" }
-                );
-
-                endpoints.MapControllerRoute(
-                    name: "admincategories",
-                    pattern: "admin/categories",
-                    defaults: new { controller = "Admin", action = "CategoryList" }
-                );
-
-                endpoints.MapControllerRoute(
-                    name: "admincategorycreate",
-                    pattern: "admin/categories/create",
-                    defaults: new { controller = "Admin", action = "CategoryCreate" }
-                );
-
-                endpoints.MapControllerRoute(
-                    name: "admincategoryedit",
-                    pattern: "admin/categories/{id?}",
-                    defaults: new { controller = "Admin", action = "CategoryEdit" }
-                );
-
-                // localhost/search    
-                endpoints.MapControllerRoute(
-                    name: "search",
-                    pattern: "search",
-                    defaults: new { controller = "Shop", action = "search" }
-                );
-
-                endpoints.MapControllerRoute(
-                    name: "productdetails",
-                    pattern: "{url}",
-                    defaults: new { controller = "Shop", action = "details" }
-                );
-
-                endpoints.MapControllerRoute(
-                    name: "products",
-                    pattern: "products/{category?}",
-                    defaults: new { controller = "Shop", action = "list" }
-                );
-
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                    pattern: "{controller=Home}/{action=Index}/{slug?}"
                 );
             });
 

@@ -1,7 +1,6 @@
 @model RoleModel
 
-<h1 class="h3">Create Role</h1>
-<hr>
+@section title {<title>Create Role | ScrapApp</title>}
 <div class="row">
     <div class="col-md-8">
         <form asp-controller="Admin" asp-action="RoleCreate" method="POST">
@@ -21,9 +20,8 @@
     </form>
     </div>
 </div>
-
-@section Scripts
+@section JavaScript
 {
-    <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.js"></script>
 }

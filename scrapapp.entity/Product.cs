@@ -7,9 +7,10 @@ namespace scrapapp.entity
 {
     public class Product
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
         [Required]
         public int DetailId { get; set; }
+        [Required]
         public Detail Detail { get; set; }
         [Required]
         public float Rate { get; set; }

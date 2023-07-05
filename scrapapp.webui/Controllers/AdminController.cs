@@ -16,24 +16,18 @@ using scrapapp.webui.Models;
 
 namespace scrapapp.webui.Controllers
 {
-    // sadikturan, efeturan, yigitbilgi => admin
-    // adabilgi => customer
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private IProductService _productService;
         private RoleManager<IdentityRole> _roleManager;
         private UserManager<User> _userManager;
-        public AdminController(IProductService productService,
-                               RoleManager<IdentityRole> roleManager,
-                               UserManager<User> userManager)
+        public AdminController(IProductService productService, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _productService = productService;
             _roleManager = roleManager;
             _userManager = userManager;
         }
-
-
         public async Task<IActionResult> UserEdit(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -41,7 +35,6 @@ namespace scrapapp.webui.Controllers
             {
                 var selectedRoles = await _userManager.GetRolesAsync(user);
                 var roles = _roleManager.Roles.Select(i => i.Name);
-
                 ViewBag.Roles = roles;
                 return View(new UserDetailsModel()
                 {
@@ -54,7 +47,7 @@ namespace scrapapp.webui.Controllers
                     SelectedRoles = selectedRoles
                 });
             }
-            return Redirect("~/admin/user/list");
+            return Redirect("~/Admin/User/List");
         }
 
 
@@ -71,29 +64,29 @@ namespace scrapapp.webui.Controllers
                     user.UserName = model.UserName;
                     user.Email = model.Email;
                     user.EmailConfirmed = model.EmailConfirmed;
-
                     var result = await _userManager.UpdateAsync(user);
-
                     if (result.Succeeded)
                     {
                         var userRoles = await _userManager.GetRolesAsync(user);
                         selectedRoles = selectedRoles ?? new string[] { };
                         await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
                         await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles).ToArray<string>());
-
-                        return Redirect("/admin/user/list");
+                        return Redirect("~/Admin/User/List");
                     }
                 }
-                return Redirect("/admin/user/list");
+                return Redirect("~/Admin/User/List");
             }
 
             return View(model);
 
         }
-
-        public IActionResult UserList()
+        public IActionResult Users()
         {
             return View(_userManager.Users);
+        }
+        public IActionResult Roles()
+        {
+            return View(_roleManager.Roles);
         }
 
         public async Task<IActionResult> RoleEdit(string id)
@@ -154,12 +147,7 @@ namespace scrapapp.webui.Controllers
                     }
                 }
             }
-            return Redirect("/admin/role/" + model.RoleId);
-        }
-
-        public IActionResult RoleList()
-        {
-            return View(_roleManager.Roles);
+            return Redirect("~/Admin/Role/List" + model.RoleId);
         }
 
         public IActionResult RoleCreate()
@@ -174,7 +162,7 @@ namespace scrapapp.webui.Controllers
                 var result = await _roleManager.CreateAsync(new IdentityRole(model.Name));
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("RoleList");
+                    return RedirectToAction("Roles");
                 }
                 else
                 {
@@ -187,11 +175,10 @@ namespace scrapapp.webui.Controllers
             return View(model);
         }
 
-
-        public async Task<IActionResult> ProductList()
+        public async Task<IActionResult> Products()
         {
             var products = await _productService.GetAll();
-            return View(new ProductListViewModel()
+            return View(new ProductViewModel()
             {
                 Products = products
             });
@@ -210,10 +197,8 @@ namespace scrapapp.webui.Controllers
                 Message = $"{entity.Detail.Name} isimli ürün silindi.",
                 AlertType = "danger"
             };
-
             TempData["message"] = JsonConvert.SerializeObject(msg);
-
-            return RedirectToAction("ProductList");
+            return RedirectToAction("Products");
         }
     }
 }

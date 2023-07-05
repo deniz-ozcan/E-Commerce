@@ -13,35 +13,35 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row mb-3">
               <div class="col">
-                <input class="form-control" asp-for="UserName">
+                <input class="form-control" asp-for="UserName" placeholder="UserName">
                 <span asp-validation-for="UserName" class="text-danger"></span>
               </div>
               <div class="col">
-                <input class="form-control" asp-for="Email">
+                <input class="form-control" asp-for="Email" placeholder="Email">
                 <span asp-validation-for="Email" class="text-danger"></span>
               </div> 
             </div>
             <div class="row mb-3">
               <div class="col">
-                <input class="form-control" asp-for="FirstName">
+                <input class="form-control" asp-for="FirstName" placeholder="FirstName">
                 <span asp-validation-for="FirstName" class="text-danger"></span>
               </div>
               <div class="col">
-                <input class="form-control" asp-for="LastName">
+                <input class="form-control" asp-for="LastName" placeholder="LastName">
                 <span asp-validation-for="LastName" class="text-danger"></span>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col">
-                <input class="form-control" asp-for="Password">
+                <input class="form-control" asp-for="Password" placeholder="Password">
                 <span asp-validation-for="Password" class="text-danger"></span>
               </div>
               <div class="col">
-                <input class="form-control" asp-for="RePassword">
+                <input class="form-control" asp-for="RePassword" placeholder="RePassword">
                 <span asp-validation-for="RePassword" class="text-danger"></span>
               </div>
             </div>
-            <div class="mb-3 d-flex  justify-content-center">
+            <div class="mb-3 d-flex justify-content-center">
               <button type="submit" class="btn btn-primary">Register</button>
             </div>
           </div>
@@ -51,7 +51,7 @@
   </div>
 </div>
 
-@section Scripts
+@section JavaScript
 {
     <script src="~/js/jquery.validate.js"></script>
     <script src="~/js/jquery.validate.unobtrusive.js"></script>

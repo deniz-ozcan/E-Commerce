@@ -3,25 +3,27 @@
 <div class="container-sm mt-5" >
   <div class="row justify-content-center">
     <div class="card col-6 p-0">
-      <div class="card-header">
-        <div class="card-title text-center pt-3">Login</div>
+      <div class="card-header bg-dark" style="color:#109801;font-size:30px;">
+        <div class="card-title text-center pt-3">LOGIN</div>
       </div>
       <div class="card-body">
-        <form asp-controller="Account" class="form-group" asp-action="Login" method="POST">
+        <form class="form-group" asp-controller="Account" asp-action="Login" method="POST">
           <div class="form-group">
             <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl">
             <div asp-validation-summary="All" class="text-danger mt-3 mb-3"></div>      
-            <div class="col-sm-10">
-              <input class="form-control" asp-for="Email">
-              <span asp-validation-for="Email" class="text-danger"></span>
-            </div>   
-            <div class="col-sm-10">
-              <input class="form-control" asp-for="Password">
-              <span asp-validation-for="Password" class="text-danger"></span>
-            </div>       
-            <div class="col-sm-10">
-              <button type="submit" class="btn btn-primary">Login</button>
-              <a href="/account/forgotpassword" class="btn btn-link">Şifremi Unuttum</a>
+            <div class="row justify-content-center">
+              <div class="col-7 mb-3">
+                <input class="form-control" asp-for="Email" placeholder="E-mail">
+                <span asp-validation-for="Email" class="text-danger"></span>
+              </div>
+              <div class="col-7 mb-3">
+                <input class="form-control" asp-for="Password" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+              </div>
+              <div class="col-6 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="/account/forgotpassword" class="btn btn-link" style="text-decoration:none;color:#4e5867;">Şifremi Unuttum</a>
+              </div>
             </div>
           </div>
         </form>
@@ -30,8 +32,8 @@
   </div>
 </div>
 
-@section Scripts
+@section JavaScript
 {
-    <script src="~/js/jquery.validate.js"></script>
-    <script src="~/js/jquery.validate.unobtrusive.js"></script>
+  <script src="~/js/jquery.validate.js"></script>
+  <script src="~/js/jquery.validate.unobtrusive.js"></script>
 }

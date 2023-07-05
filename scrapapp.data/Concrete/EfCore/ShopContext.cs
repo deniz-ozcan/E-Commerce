@@ -17,7 +17,7 @@ namespace scrapapp.data.Concrete.EfCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
-            // modelBuilder.Seed();
+            modelBuilder.Seed();
         }
     }
 }

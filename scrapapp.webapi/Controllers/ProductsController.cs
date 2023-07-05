@@ -48,7 +48,7 @@ namespace scrapapp.webapi.Controllers
         public async Task<IActionResult> CreateProduct(Product entity)
         {
             await _productService.CreateAsync(entity);
-            return CreatedAtAction(nameof(GetProduct), new { id = entity.ProductId }, ProductToDTO(entity));
+            return CreatedAtAction(nameof(GetProduct), new { id = entity.Id }, ProductToDTO(entity));
         }
 
         // localhost:5000/api/products/2
@@ -89,7 +89,7 @@ namespace scrapapp.webapi.Controllers
         {
             return new ProductDTO
             {
-                ProductId = p.ProductId,
+                ProductId = p.Id,
                 Name = p.Detail.Name,
                 Price = p.Price,
                 Url = p.Detail.Image,

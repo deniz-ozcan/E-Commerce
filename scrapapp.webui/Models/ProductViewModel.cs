@@ -17,9 +17,10 @@ namespace scrapapp.webui.Models
         }
     }
 
-    public class ProductListViewModel
+    public class ProductViewModel
     {
         public PageInfo PageInfo { get; set; }
         public List<Product> Products { get; set; }
+        public List<Category> Categories { get; set; }
     }
 }

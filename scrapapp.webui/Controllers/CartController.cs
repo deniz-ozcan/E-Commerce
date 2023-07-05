@@ -106,7 +106,7 @@ namespace scrapapp.webui.Controllers
                 };
                 SaveOrder(model, PaymentProcess(model), userId);
                 ClearCart(model.CartModel.CartId);
-                return View("Success");
+                return View();
             }
             return View(model);
         }

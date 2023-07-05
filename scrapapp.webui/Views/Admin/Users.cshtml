@@ -1,21 +1,9 @@
 @model IEnumerable<User>
 
-@section Css
+@section title {<title>User List | ScrapApp</title>}
+@section css_files
 {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-}
-  
-@section Scripts
-{
-    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-
-    <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable();
-        });
-    </script>
-
 }
 
 
@@ -39,7 +27,7 @@
             <tbody>
                 @if(Model.Count()>0)
                 {
-                       @foreach (var item in Model)
+                    @foreach (var item in Model)
                         {
                             <tr class="@(item.EmailConfirmed?"":"bg-warning")">
                                 <td>@item.FirstName</td>
@@ -68,3 +56,16 @@
         </table>
     </div>
 </div>
+
+
+@section JavaScript
+{
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

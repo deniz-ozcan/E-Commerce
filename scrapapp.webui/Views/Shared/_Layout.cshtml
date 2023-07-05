@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/fontawesome.css">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="icon" href="~/img/python.svg" type="image/x-icon">
     @RenderSection("title", required: true)
@@ -15,14 +14,8 @@
       .accordion-item {background-color: #fff;border: 0px solid #00000020; }
       .accordion-button:not(.collapsed) {color: #ff8800;background-color: #fff;box-shadow: none;}
       .accordion-button:focus {z-index: 3;background-color: #fff;border-color: #fff;outline: 0;box-shadow: none;}
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-      input[type=number] {
-        -moz-appearance: textfield;
-      }
+      input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0;}
+      input[type=number] {-moz-appearance: textfield;}
     </style>
     @RenderSection("css_files", required: false)
 </head>
@@ -49,21 +42,18 @@
               if (User.IsInRole("admin"))
               {
                 <li class="nav-item">
-                  <a asp-controller="Admin" asp-action="products" class="nav-link">Admin Products</a>
+                  <a asp-controller="Admin" asp-action="Products" class="nav-link">Admin Products</a>
                 </li>
                 <li class="nav-item">
-                  <a asp-controller="Admin" asp-action="categories" class="nav-link">Admin Categories</a>
+                  <a href="~/Admin/Role/List" class="nav-link">Roles</a>
                 </li>
                 <li class="nav-item">
-                  <a href="Admin/role/list" class="nav-link">Roles</a>
-                </li>
-                <li class="nav-item">
-                  <a href="Admin/user/list" class="nav-link">Users</a>
+                  <a href="~/Admin/User/List" class="nav-link">Users</a>
                 </li>
               }
             }
           </ul>
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ms-auto">
             @if (User.Identity.IsAuthenticated)
             {
               <li class="nav-item">
@@ -91,7 +81,7 @@
         <partial name="_ResultMessage" model="@(TempData.Get<AlertMessage>("message"))"/>
     }   
     @RenderBody()
-    <footer id="footer" class="py-5 bg-dark text-white text-center">Scrap App</footer>
+    <footer id="footer" class="py-5 bg-dark text-white text-center mt-3">Scrap App</footer>
     @RenderSection("JavaScript",false)
     <script src="~/js/bootstrap.min.js"></script>
 </body>

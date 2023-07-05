@@ -37,11 +37,11 @@ namespace scrapapp.data.Configurations
                         count++;
                     }
                 }
-                products.Add(new Product { ProductId = details[i].DetailId, Detail = details[i], DetailId = details[i].DetailId, SitesInformation = info, Price = price, Rate = rate, is_updated = false });
+                products.Add(new Product { Id = details[i].DetailId, Detail = details[i], DetailId = details[i].DetailId, SitesInformation = info, Price = price, Rate = rate, is_updated = false });
             }
-            builder.Entity<Product>().HasData(products.ToArray());
-            builder.Entity<Detail>().HasData(details.ToArray());
             builder.Entity<SitesInformation>().HasData(sitesInfo.ToArray());
+            builder.Entity<Detail>().HasData(details.ToArray());
+            builder.Entity<Product>().HasData(products.ToArray());
         }
     }
 }
