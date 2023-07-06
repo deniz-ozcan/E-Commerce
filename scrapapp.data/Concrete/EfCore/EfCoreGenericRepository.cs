@@ -6,14 +6,10 @@ using scrapapp.data.Abstract;
 
 namespace scrapapp.data.Concrete.EfCore
 {
-    public class EfCoreGenericRepository<TEntity> : IRepository<TEntity>
-        where TEntity : class
+    public class EfCoreGenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext context;
-        public EfCoreGenericRepository(DbContext ctx)
-        {
-            context = ctx;
-        }
+        public EfCoreGenericRepository(DbContext ctx) { context = ctx; }
         public void Create(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
@@ -42,6 +38,5 @@ namespace scrapapp.data.Concrete.EfCore
         {
             context.Entry(entity).State = EntityState.Modified;
         }
-
     }
 }

@@ -69,13 +69,10 @@ namespace scrapapp.webui
                     SameSite = SameSiteMode.Strict
                 };
             });
-
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICartService, CartManager>();
             services.AddScoped<IOrderService, OrderManager>();
-
             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
                 new SmtpEmailSender(
                     _configuration["EmailSender:Host"],
@@ -84,7 +81,6 @@ namespace scrapapp.webui
                     _configuration["EmailSender:UserName"],
                     _configuration["EmailSender:Password"])
                 );
-
             services.AddControllersWithViews();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ICartService cartService)
@@ -99,26 +95,20 @@ namespace scrapapp.webui
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-
                 endpoints.MapControllerRoute(
-                    name: "orders",
-                    pattern: "orders",
+                    name: "Orders",
+                    pattern: "Orders",
                     defaults: new { controller = "Cart", action = "GetOrders" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "checkout",
-                    pattern: "checkout",
+                    name: "Checkout",
+                    pattern: "Checkout",
                     defaults: new { controller = "Cart", action = "Checkout" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "cart",
-                    pattern: "cart",
+                    name: "Cart",
+                    pattern: "Cart",
                     defaults: new { controller = "Cart", action = "Index" }
-                );
-                endpoints.MapControllerRoute(
-                    name: "AdminProducts",
-                    pattern: "Admin/Products",
-                    defaults: new { controller = "Admin", action = "Products" }
                 );
                 endpoints.MapControllerRoute(
                     name: "AdminUserEdit",
@@ -128,7 +118,17 @@ namespace scrapapp.webui
                 endpoints.MapControllerRoute(
                     name: "AdminUsers",
                     pattern: "Admin/User/List",
-                    defaults: new { controller = "Admin", action = "Users" }
+                    defaults: new { controller = "Admin", action = "UserList" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "AdminRoles",
+                    pattern: "Admin/Role/List",
+                    defaults: new { controller = "Admin", action = "RoleList" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "AdminRoleCreate",
+                    pattern: "Admin/Role/create",
+                    defaults: new { controller = "Admin", action = "RoleCreate" }
                 );
                 endpoints.MapControllerRoute(
                     name: "AdminRoleEdit",
@@ -136,21 +136,30 @@ namespace scrapapp.webui
                     defaults: new { controller = "Admin", action = "RoleEdit" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "AdminRoleCreate",
-                    pattern: "Admin/Role/Create",
-                    defaults: new { controller = "Admin", action = "RoleCreate" }
+                    name: "AdminProducts",
+                    pattern: "Admin/Products",
+                    defaults: new { controller = "Admin", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "AdminRoles",
-                    pattern: "Admin/Role/List",
-                    defaults: new { controller = "Admin", action = "Roles" }
+                    name: "Search",
+                    pattern: "Search",
+                    defaults: new { controller = "Home", action = "Search" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "ProductDetails",
+                    pattern: "{url}",
+                    defaults: new { controller = "Home", action = "Detail" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "Products",
+                    pattern: "Products",
+                    defaults: new { controller = "Home", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{slug?}"
                 );
             });
-
             SeedIdentity.Seed(userManager, roleManager, cartService, configuration).Wait();
         }
     }

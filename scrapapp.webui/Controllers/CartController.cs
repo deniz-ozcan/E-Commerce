@@ -38,7 +38,6 @@ namespace scrapapp.webui.Controllers
                     Price = (double)i.Product.Price,
                     ImageUrl = i.Product.Detail.Image,
                     Quantity = i.Quantity
-
                 }).ToList()
             });
         }
@@ -46,8 +45,7 @@ namespace scrapapp.webui.Controllers
         [HttpPost]
         public IActionResult AddToCart(int productId, int quantity)
         {
-            var userId = _userManager.GetUserId(User);
-            _cartService.AddToCart(userId, productId, quantity);
+            _cartService.AddToCart(_userManager.GetUserId(User), productId, quantity);
             return RedirectToAction("Index");
         }
 
@@ -76,10 +74,8 @@ namespace scrapapp.webui.Controllers
                     Price = (double)i.Product.Price,
                     ImageUrl = i.Product.Detail.Image,
                     Quantity = i.Quantity
-
                 }).ToList()
             };
-
             return View(orderModel);
         }
 
@@ -90,7 +86,6 @@ namespace scrapapp.webui.Controllers
             {
                 var userId = _userManager.GetUserId(User);
                 var cart = _cartService.GetCartByUserId(userId);
-
                 model.CartModel = new CartModel()
                 {
                     CartId = cart.Id,
@@ -115,7 +110,6 @@ namespace scrapapp.webui.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var orders = _orderService.GetOrders(userId);
-
             var orderListModel = new List<OrderListModel>();
             OrderListModel orderModel;
             foreach (var order in orders)

@@ -17,8 +17,7 @@ namespace scrapapp.webui.Controllers
         {
             this._productService = productService;
         }
-
-        public IActionResult Index(string category,int page=1)
+        public IActionResult Index(string category, int page = 1)
         {
             return View(new ProductViewModel()
             {
@@ -26,26 +25,11 @@ namespace scrapapp.webui.Controllers
                 {
                     TotalItems = _productService.GetCountByCategory(category),
                     CurrentPage = page,
-                    ItemsPerPage = 2,
+                    ItemsPerPage = 24,
                     CurrentCategory = category
                 },
-                Products = _productService.GetProductsByCategory(category,page,2)
+                Products = _productService.GetProductsByCategory(category,page,24)
             });
-        }
-
-        public async Task<IActionResult> RestApi()
-        {
-            var products = new List<Product>();
-
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("http://localhost:4200/api/products"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    products = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
-                }
-            }
-            return View(products);
         }
         public IActionResult Detail(string slug)
         {
@@ -58,8 +42,7 @@ namespace scrapapp.webui.Controllers
             {
                 return NotFound();
             }
-            return View(new ProductViewModel{
-            });
+            return View(product);
         }
         public IActionResult Search(string q)
         {
@@ -68,6 +51,19 @@ namespace scrapapp.webui.Controllers
                 Products = _productService.GetSearchResult(q)
             };
             return View("Index", productViewModel);
+        }
+        public async Task<IActionResult> RestApi()
+        {
+            var products = new List<Product>();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:4200/api/products"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    products = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
+                }
+            }
+            return View(products);
         }
     }
 }

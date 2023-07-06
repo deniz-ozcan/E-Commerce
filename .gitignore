@@ -144,6 +144,8 @@ UpgradeLog*.htm
 *.txt
 *.swp
 *.swo
+*.sqlite3-shm
+*.sqlite3-wal
 
 # Temp files when opening LibreOffice on ubuntu
 .~lock.*

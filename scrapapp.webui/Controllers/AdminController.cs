@@ -50,43 +50,33 @@ namespace scrapapp.webui.Controllers
             return Redirect("~/Admin/User/List");
         }
 
-
         [HttpPost]
         public async Task<IActionResult> UserEdit(UserDetailsModel model, string[] selectedRoles)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByIdAsync(model.UserId);
-                if (user != null)
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.EmailConfirmed = model.EmailConfirmed;
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
                 {
-                    user.FirstName = model.FirstName;
-                    user.LastName = model.LastName;
-                    user.UserName = model.UserName;
-                    user.Email = model.Email;
-                    user.EmailConfirmed = model.EmailConfirmed;
-                    var result = await _userManager.UpdateAsync(user);
-                    if (result.Succeeded)
-                    {
-                        var userRoles = await _userManager.GetRolesAsync(user);
-                        selectedRoles = selectedRoles ?? new string[] { };
-                        await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
-                        await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles).ToArray<string>());
-                        return Redirect("~/Admin/User/List");
-                    }
+                    var userRoles = await _userManager.GetRolesAsync(user);
+                    selectedRoles = selectedRoles ?? new string[] { };
+                    await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
+                    await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles).ToArray<string>());
                 }
                 return Redirect("~/Admin/User/List");
             }
-
             return View(model);
-
         }
-        public IActionResult Users()
+
+        public IActionResult UserList()
         {
             return View(_userManager.Users);
-        }
-        public IActionResult Roles()
-        {
-            return View(_roleManager.Roles);
         }
 
         public async Task<IActionResult> RoleEdit(string id)
@@ -130,7 +120,6 @@ namespace scrapapp.webui.Controllers
                         }
                     }
                 }
-
                 foreach (var userId in model.IdsToDelete ?? new string[] { })
                 {
                     var user = await _userManager.FindByIdAsync(userId);
@@ -147,7 +136,12 @@ namespace scrapapp.webui.Controllers
                     }
                 }
             }
-            return Redirect("~/Admin/Role/List" + model.RoleId);
+            return Redirect("/Admin/Role/" + model.RoleId);
+        }
+
+        public IActionResult RoleList()
+        {
+            return View(_roleManager.Roles);
         }
 
         public IActionResult RoleCreate()
@@ -162,7 +156,7 @@ namespace scrapapp.webui.Controllers
                 var result = await _roleManager.CreateAsync(new IdentityRole(model.Name));
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Roles");
+                    return RedirectToAction("RoleList");
                 }
                 else
                 {
@@ -175,13 +169,9 @@ namespace scrapapp.webui.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Products()
+        public async Task<IActionResult> Index()
         {
-            var products = await _productService.GetAll();
-            return View(new ProductViewModel()
-            {
-                Products = products
-            });
+            return View("Index",new ProductViewModel(){Products =  await _productService.GetAll()});
         }
         public async Task<IActionResult> DeleteProduct(string slug)
         {

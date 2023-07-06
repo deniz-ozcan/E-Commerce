@@ -97,7 +97,7 @@
   border-left:0 px #000;
 }
 .accordion-container {
-  height: 2270px; /* İstenilen yüksekliği burada belirtin */
+  height: 600px; /* İstenilen yüksekliği burada belirtin */
   overflow: auto;
   top: 0;
   transition: top 0.2s ease-in-out 0s;

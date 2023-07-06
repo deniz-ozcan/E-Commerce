@@ -7,10 +7,7 @@ namespace scrapapp.data.Concrete.EfCore
 {
     public class EfCoreCartRepository : EfCoreGenericRepository<Cart>, ICartRepository
     {
-        public EfCoreCartRepository(ShopContext context) : base(context)
-        {
-
-        }
+        public EfCoreCartRepository(ShopContext context) : base(context) { }
         private ShopContext ShopContext
         {
             get { return context as ShopContext; }

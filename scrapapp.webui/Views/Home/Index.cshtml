@@ -66,7 +66,7 @@
             @if(String.IsNullOrEmpty(Model.PageInfo.CurrentCategory))
             {
                 <li class="page-item @(Model.PageInfo.CurrentPage==i+1?"active":"")">
-                    <a class="page-link" href="/products?page=@(i+1)">
+                    <a class="page-link" href="/Products?page=@(i+1)">
                         @(i+1)
                     </a>
                 </li>  
@@ -74,7 +74,7 @@
             else
             {
                 <li class="page-item @(Model.PageInfo.CurrentPage==i+1?"active":"")">
-                    <a class="page-link" href="/products/@Model.PageInfo.CurrentCategory?page=@(i+1)">
+                    <a class="page-link" href="/Products/@Model.PageInfo.CurrentCategory?page=@(i+1)">
                         @(i+1)
                     </a>
                 </li> 

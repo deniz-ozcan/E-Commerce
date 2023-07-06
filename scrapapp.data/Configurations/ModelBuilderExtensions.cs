@@ -9,6 +9,9 @@ namespace scrapapp.data.Configurations
         {
             var sitesInfo = new List<SitesInformation>();
             var details = new List<Detail>();
+            var products = new List<Product>();
+            float price = 0.0f, rate = 0.0f;
+            int count = 0;
             var sites = File.ReadAllLines("../scrapapp.data/Configurations/InitialData/siteInformations.csv");
             foreach (var line in sites)
             {
@@ -21,9 +24,6 @@ namespace scrapapp.data.Configurations
                 var fields = line.Split(',');
                 details.Add(new Detail { DetailId = int.Parse(fields[0]), Name = fields[2], Model = fields[1], Processor = fields[6], Ram = fields[5], Screen = fields[4], Storage = fields[7], System = fields[8], Image = fields[9], Slug = fields[3], ProductId = int.Parse(fields[0])});
             }
-            var products = new List<Product>();
-            float price = 0.0f, rate = 0.0f;
-            int count = 0;
             for (int i = 0; i < details.Count; i++)
             {
                 var info = new List<SitesInformation>();
@@ -37,7 +37,19 @@ namespace scrapapp.data.Configurations
                         count++;
                     }
                 }
-                products.Add(new Product { Id = details[i].DetailId, Detail = details[i], DetailId = details[i].DetailId, SitesInformation = info, Price = price, Rate = rate, is_updated = false });
+                var product = new Product
+                {
+                    Id = details[i].DetailId,
+                    DetailId = details[i].DetailId,
+                    Price = price,
+                    Rate = rate,
+                    is_updated = false
+                };
+                products.Add(product);
+                foreach (var sitesInformation in info)
+                {
+                    sitesInformation.ProductId = product.Id;
+                }
             }
             builder.Entity<SitesInformation>().HasData(sitesInfo.ToArray());
             builder.Entity<Detail>().HasData(details.ToArray());

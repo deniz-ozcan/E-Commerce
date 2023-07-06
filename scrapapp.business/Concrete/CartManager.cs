@@ -14,7 +14,6 @@ namespace scrapapp.business.Concrete
         public void AddToCart(string userId, int productId, int quantity)
         {
             var cart = GetCartByUserId(userId);
-
             if (cart != null)
             {
                 var index = cart.CartItems.FindIndex(i => i.ProductId == productId);
