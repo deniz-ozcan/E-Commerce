@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using scrapapp.data.Abstract;
 using scrapapp.entity;

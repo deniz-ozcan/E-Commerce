@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace scrapapp.data.Abstract
 {
     public interface IUnitOfWork : IDisposable

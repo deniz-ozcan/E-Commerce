@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace scrapapp.entity
 {
     public class Cart

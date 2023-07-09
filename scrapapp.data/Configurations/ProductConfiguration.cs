@@ -8,7 +8,7 @@ namespace scrapapp.data.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasKey(m=>m.Id);
+            builder.HasKey(m => m.Id);
             builder.HasOne(e => e.Detail)
                     .WithOne(e => e.Product)
                     .HasForeignKey<Detail>(e => e.DetailId)

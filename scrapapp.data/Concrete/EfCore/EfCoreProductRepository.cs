@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using scrapapp.data.Abstract;
 using scrapapp.entity;
@@ -12,6 +10,12 @@ namespace scrapapp.data.Concrete.EfCore
         private ShopContext ShopContext
         {
             get { return context as ShopContext; }
+        }
+        public async Task<List<Product>> GetAllProducts()
+        {
+            return await ShopContext.Products
+                    .Select(i => new Product { Detail = i.Detail, SitesInformation = i.SitesInformation, Rate = i.Rate, Price = i.Price, is_updated = i.is_updated })
+                    .ToListAsync();
         }
         public Product GetBySlugWithCategories(string slug)
         {

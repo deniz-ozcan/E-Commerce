@@ -1,16 +1,13 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using scrapapp.business.Abstract;
 
 namespace scrapapp.webui.Identity
 {
     public static class SeedIdentity
     {
-        public static async Task Seed(UserManager<User> userManager, RoleManager<IdentityRole> roleManager,ICartService cartService,IConfiguration configuration)
+        public static async Task Seed(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ICartService cartService, IConfiguration configuration)
         {
-            var roles = configuration.GetSection("Data:Roles").GetChildren().Select(x=>x.Value).ToArray();
+            var roles = configuration.GetSection("Data:Roles").GetChildren().Select(x => x.Value).ToArray();
             foreach (var role in roles)
             {
                 if (!await roleManager.RoleExistsAsync(role))
@@ -27,7 +24,7 @@ namespace scrapapp.webui.Identity
                 var role = section.GetValue<string>("role");
                 var firstName = section.GetValue<string>("firstName");
                 var lastName = section.GetValue<string>("lastName");
-                if(await userManager.FindByNameAsync(username)==null)
+                if (await userManager.FindByNameAsync(username) == null)
                 {
                     var user = new User()
                     {
@@ -37,14 +34,14 @@ namespace scrapapp.webui.Identity
                         LastName = lastName,
                         EmailConfirmed = true
                     };
-                    var result = await userManager.CreateAsync(user,password);
-                    if(result.Succeeded)
+                    var result = await userManager.CreateAsync(user, password);
+                    if (result.Succeeded)
                     {
-                        await userManager.AddToRoleAsync(user,role);
+                        await userManager.AddToRoleAsync(user, role);
                         cartService.InitializeCart(user.Id);
                     }
                 }
-                
+
             }
         }
     }

@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace scrapapp.webui.Models
 {
     public class CartModel
@@ -10,11 +7,11 @@ namespace scrapapp.webui.Models
 
         public double TotalPrice()
         {
-            return CartItems.Sum(i=>i.Price*i.Quantity);
+            return CartItems.Sum(i => i.Price * i.Quantity);
         }
     }
 
-    public class CartItemModel 
+    public class CartItemModel
     {
         public int CartItemId { get; set; }
         public int ProductId { get; set; }

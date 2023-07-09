@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace scrapapp.data.Abstract
 {
     public interface IRepository<T>

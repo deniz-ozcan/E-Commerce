@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using scrapapp.business.Abstract;
 using scrapapp.data.Abstract;
-using scrapapp.data.Concrete.EfCore;
 using scrapapp.entity;
 
 namespace scrapapp.business.Concrete
@@ -38,6 +35,11 @@ namespace scrapapp.business.Concrete
         public async Task<List<Product>> GetAll()
         {
             return await _unitofwork.Products.GetAll();
+        }
+
+        public async Task<List<Product>> GetAllProducts()
+        {
+            return await _unitofwork.Products.GetAllProducts();
         }
         public async Task<Product> GetBySlug(string slug)
         {

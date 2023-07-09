@@ -22,7 +22,7 @@ namespace scrapapp.data.Configurations
             foreach (var line in pros)
             {
                 var fields = line.Split(',');
-                details.Add(new Detail { DetailId = int.Parse(fields[0]), Name = fields[2], Model = fields[1], Processor = fields[6], Ram = fields[5], Screen = fields[4], Storage = fields[7], System = fields[8], Image = fields[9], Slug = fields[3], ProductId = int.Parse(fields[0])});
+                details.Add(new Detail { DetailId = int.Parse(fields[0]), Name = fields[2], Model = fields[1], Processor = fields[6], Ram = fields[5], Screen = fields[4], Storage = fields[7], System = fields[8], Image = fields[9], Slug = fields[3], ProductId = int.Parse(fields[0]) });
             }
             for (int i = 0; i < details.Count; i++)
             {

@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using scrapapp.data.Concrete.EfCore;
 using scrapapp.webui.Identity;
 
@@ -23,16 +21,14 @@ namespace scrapapp.webui.Extensions
                         throw;
                     }
                 }
-                using (var shopContext = scope.ServiceProvider.GetRequiredService<ShopContext>())
+                using var shopContext = scope.ServiceProvider.GetRequiredService<ShopContext>();
+                try
                 {
-                    try
-                    {
-                        shopContext.Database.Migrate();
-                    }
-                    catch (System.Exception)
-                    {
-                        throw;
-                    }
+                    shopContext.Database.Migrate();
+                }
+                catch (System.Exception)
+                {
+                    throw;
                 }
             }
             return host;

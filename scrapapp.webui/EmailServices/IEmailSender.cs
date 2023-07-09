@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace scrapapp.webui.EmailServices
 {
     public interface IEmailSender

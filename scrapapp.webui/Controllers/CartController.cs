@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using scrapapp.business.Abstract;
 using scrapapp.entity;
 using scrapapp.webui.Identity;
@@ -108,14 +104,13 @@ namespace scrapapp.webui.Controllers
 
         public IActionResult GetOrders()
         {
-            var userId = _userManager.GetUserId(User);
-            var orders = _orderService.GetOrders(userId);
-            var orderListModel = new List<OrderListModel>();
+            string userId = _userManager.GetUserId(User);
+            List<Order> orders = _orderService.GetOrders(userId);
+            List<OrderListModel> orderListModel = new();
             OrderListModel orderModel;
             foreach (var order in orders)
             {
                 orderModel = new OrderListModel();
-
                 orderModel.OrderId = order.Id;
                 orderModel.OrderNumber = order.OrderNumber;
                 orderModel.OrderDate = order.OrderDate;
@@ -127,7 +122,6 @@ namespace scrapapp.webui.Controllers
                 orderModel.City = order.City;
                 orderModel.OrderState = order.OrderState;
                 orderModel.PaymentType = order.PaymentType;
-
                 orderModel.OrderItems = order.OrderItems.Select(i => new OrderItemModel()
                 {
                     OrderItemId = i.Id,
@@ -151,24 +145,25 @@ namespace scrapapp.webui.Controllers
 
         private void SaveOrder(OrderModel model, Payment payment, string userId)
         {
-            var order = new Order();
+            Order order = new()
+            {
+                OrderNumber = new Random().Next(111111, 999999).ToString(),
+                OrderState = EnumOrderState.completed,
+                PaymentType = EnumPaymentType.CreditCard,
+                PaymentId = payment.PaymentId,
+                ConversationId = payment.ConversationId,
+                OrderDate = new DateTime(),
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserId = userId,
+                Address = model.Address,
+                Phone = model.Phone,
+                Email = model.Email,
+                City = model.City,
+                Note = model.Note,
 
-            order.OrderNumber = new Random().Next(111111, 999999).ToString();
-            order.OrderState = EnumOrderState.completed;
-            order.PaymentType = EnumPaymentType.CreditCard;
-            order.PaymentId = payment.PaymentId;
-            order.ConversationId = payment.ConversationId;
-            order.OrderDate = new DateTime();
-            order.FirstName = model.FirstName;
-            order.LastName = model.LastName;
-            order.UserId = userId;
-            order.Address = model.Address;
-            order.Phone = model.Phone;
-            order.Email = model.Email;
-            order.City = model.City;
-            order.Note = model.Note;
-
-            order.OrderItems = new List<entity.OrderItem>();
+                OrderItems = new List<entity.OrderItem>()
+            };
 
             foreach (var item in model.CartModel.CartItems)
             {

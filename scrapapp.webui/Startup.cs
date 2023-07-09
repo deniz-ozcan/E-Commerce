@@ -1,17 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using scrapapp.business.Abstract;
 using scrapapp.business.Concrete;
 using scrapapp.data.Abstract;
@@ -57,9 +45,9 @@ namespace scrapapp.webui
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/account/login";
-                options.LogoutPath = "/account/logout";
-                options.AccessDeniedPath = "/account/accessdenied";
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromDays(30);
                 options.Cookie = new CookieBuilder
@@ -138,7 +126,7 @@ namespace scrapapp.webui
                 endpoints.MapControllerRoute(
                     name: "AdminProducts",
                     pattern: "Admin/Products",
-                    defaults: new { controller = "Admin", action = "Index" }
+                    defaults: new { controller = "Admin", action = "Products" }
                 );
                 endpoints.MapControllerRoute(
                     name: "Search",

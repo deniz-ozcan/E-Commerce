@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using scrapapp.business.Abstract;
@@ -28,21 +24,17 @@ namespace scrapapp.webui.Controllers
                     ItemsPerPage = 24,
                     CurrentCategory = category
                 },
-                Products = _productService.GetProductsByCategory(category,page,24)
+                Products = _productService.GetProductsByCategory(category, page, 24)
             });
         }
         public IActionResult Detail(string slug)
         {
-            if (slug==null)
+            if (slug == null)
             {
                 return NotFound();
             }
             Product product = _productService.GetProductDetails(slug);
-            if(product==null)
-            {
-                return NotFound();
-            }
-            return View(product);
+            return product == null ? NotFound() : View(product);
         }
         public IActionResult Search(string q)
         {
@@ -57,11 +49,9 @@ namespace scrapapp.webui.Controllers
             var products = new List<Product>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("http://localhost:4200/api/products"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    products = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
-                }
+                using var response = await httpClient.GetAsync("http://localhost:4200/api/products");
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                products = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
             }
             return View(products);
         }

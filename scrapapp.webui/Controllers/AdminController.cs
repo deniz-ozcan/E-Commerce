@@ -1,16 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using scrapapp.business.Abstract;
-using scrapapp.entity;
-using scrapapp.webui.Extensions;
 using scrapapp.webui.Identity;
 using scrapapp.webui.Models;
 
@@ -19,9 +11,9 @@ namespace scrapapp.webui.Controllers
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        private IProductService _productService;
-        private RoleManager<IdentityRole> _roleManager;
-        private UserManager<User> _userManager;
+        private readonly IProductService _productService;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<User> _userManager;
         public AdminController(IProductService productService, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _productService = productService;
@@ -74,22 +66,17 @@ namespace scrapapp.webui.Controllers
             return View(model);
         }
 
-        public IActionResult UserList()
-        {
-            return View(_userManager.Users);
-        }
-
+        public IActionResult UserList() => View(_userManager.Users);
+        public IActionResult RoleList() => View(_roleManager.Roles);
+        public IActionResult RoleCreate() => View();
         public async Task<IActionResult> RoleEdit(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
-
             var members = new List<User>();
             var nonmembers = new List<User>();
-
             foreach (var user in _userManager.Users)
             {
-                var list = await _userManager.IsInRoleAsync(user, role.Name)
-                                ? members : nonmembers;
+                var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonmembers;
                 list.Add(user);
             }
             var model = new RoleDetails()
@@ -139,15 +126,6 @@ namespace scrapapp.webui.Controllers
             return Redirect("/Admin/Role/" + model.RoleId);
         }
 
-        public IActionResult RoleList()
-        {
-            return View(_roleManager.Roles);
-        }
-
-        public IActionResult RoleCreate()
-        {
-            return View();
-        }
         [HttpPost]
         public async Task<IActionResult> RoleCreate(RoleModel model)
         {
@@ -169,10 +147,7 @@ namespace scrapapp.webui.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View("Index",new ProductViewModel(){Products =  await _productService.GetAll()});
-        }
+        public async Task<IActionResult> Products() => View( new ProductViewModel() { Products = await _productService.GetAllProducts() });
         public async Task<IActionResult> DeleteProduct(string slug)
         {
             var entity = await _productService.GetBySlug(slug);

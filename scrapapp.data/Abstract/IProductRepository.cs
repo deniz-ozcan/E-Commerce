@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using scrapapp.entity;
 
 namespace scrapapp.data.Abstract
@@ -11,5 +10,6 @@ namespace scrapapp.data.Abstract
         List<Product> GetSearchResult(string searchString);
         int GetCountByCategory(string category);
         void Update(Product entity, int[] categoryIds);
+        Task<List<Product>> GetAllProducts();
     }
 }

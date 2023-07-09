@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using scrapapp.entity;
 
 namespace scrapapp.webui.Models
 {

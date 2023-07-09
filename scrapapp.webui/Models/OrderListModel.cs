@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using scrapapp.entity;
 
 namespace scrapapp.webui.Models
@@ -17,13 +14,13 @@ namespace scrapapp.webui.Models
         public string City { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public string Note { get; set; }      
+        public string Note { get; set; }
         public EnumPaymentType PaymentType { get; set; }
         public EnumOrderState OrderState { get; set; }
         public List<OrderItemModel> OrderItems { get; set; }
         public double TotalPrice()
         {
-            return OrderItems.Sum(i=>i.Price * i.Quantity);
+            return OrderItems.Sum(i => i.Price * i.Quantity);
         }
     }
 

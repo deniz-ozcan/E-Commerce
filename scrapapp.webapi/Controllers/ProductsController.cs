@@ -1,9 +1,6 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
 using scrapapp.business.Abstract;
-using System.Threading.Tasks;
 using scrapapp.entity;
-using System.Collections.Generic;
 using scrapapp.webapi.DTO;
 
 namespace scrapapp.webapi.Controllers
@@ -21,7 +18,7 @@ namespace scrapapp.webapi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _productService.GetAll();
+            var products = await _productService.GetAllProducts();
 
             var productsDTO = new List<ProductDTO>();
 
@@ -51,11 +48,10 @@ namespace scrapapp.webapi.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = entity.Id }, ProductToDTO(entity));
         }
 
-        // localhost:5000/api/products/2
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(string slug, Product entity)
         {
-            if (slug.Equals(entity.Detail.Slug)==false)
+            if (slug.Equals(entity.Detail.Slug) == false)
             {
                 return BadRequest();
             }

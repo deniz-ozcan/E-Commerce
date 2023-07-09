@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using scrapapp.data.Abstract;
 
 namespace scrapapp.data.Concrete.EfCore

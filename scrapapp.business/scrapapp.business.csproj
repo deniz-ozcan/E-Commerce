@@ -5,7 +5,6 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\scrapapp.entity\scrapapp.entity.csproj"/>
-    <ProjectReference Include="..\scrapapp.data\scrapapp.data.csproj"/>
+    <ProjectReference Include="..\scrapapp.data\scrapapp.data.csproj" />
   </ItemGroup>
 </Project>
