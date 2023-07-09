@@ -11,7 +11,7 @@
         <li><a href="#about-the-project"> ➤ About The Project</a></li>
         <li><a href="#overview"> ➤ Overview</a></li>
         <li><a href="#howtoinstall"> ➤ How to install</a></li>
-        <li><a href="#project-files-description"> ➤ Project Files Description</a></li>
+        <li><a href="#project-files-description"> ➤ Project Folders Description</a></li>
         <li><a href="#Credits"> ➤ Credits</a></li>
     </ol>
 </details>
@@ -66,7 +66,7 @@
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 <!-- PROJECT FILES DESCRIPTION -->
-<h2 id="project-files-description">📝 Project Files Description</h2>
+<h2 id="project-files-description">📝 Project Folders Description</h2>
 
 <ul>
     <li><b>scrapapp.webui:</b>This layer includes functionalities related to the web user interface (UI). It typically handles tasks such as creating web pages, managing user login and logout, and processing user interactions. This layer receives requests from web browsers, processes them, and sends the results back to the user. User interface code is used to create web pages using technologies like HTML, CSS, and JavaScript.</li>
