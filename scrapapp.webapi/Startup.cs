@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using scrapapp.business.Abstract;
 using scrapapp.business.Concrete;
 using scrapapp.data.Abstract;
@@ -38,12 +39,21 @@ namespace scrapapp.webapi
                     }
                 );
             });
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "ScrapApp API", Version = "v1" });
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(opt =>
+                {
+                    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "ScrapApp API");
+                });
             }
             app.UseRouting();
             app.UseCors(MyAllowOrigins);
