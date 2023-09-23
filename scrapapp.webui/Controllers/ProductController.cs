@@ -6,43 +6,35 @@ using scrapapp.webui.Models;
 
 namespace scrapapp.webui.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
         private IProductService _productService;
-        public HomeController(IProductService productService)
+        public ProductController(IProductService productService)
         {
             this._productService = productService;
         }
-        public IActionResult Index(string category, int page = 1)
+        public async Task<IActionResult> Index(string category, int page = 1)
         {
             return View(new ProductViewModel()
             {
                 PageInfo = new PageInfo()
                 {
-                    TotalItems = _productService.GetCountByCategory(category),
+                    TotalItems = await _productService.GetProductsCountByCategoryAsync(category),
                     CurrentPage = page,
                     ItemsPerPage = 24,
                     CurrentCategory = category
                 },
-                Products = _productService.GetProductsByCategory(category, page, 24)
+                Products = await _productService.GetProductsByCategoryAsync(category, page, 24)
             });
         }
-        public IActionResult Detail(string slug)
+        public async Task<IActionResult> Detail(int id)
         {
-            if (slug == null)
+            if (id < 1)
             {
                 return NotFound();
             }
-            Product product = _productService.GetProductDetails(slug);
+            Product product = await _productService.GetByIdAsync(id);
             return product == null ? NotFound() : View(product);
-        }
-        public IActionResult Search(string q)
-        {
-            var productViewModel = new ProductViewModel()
-            {
-                Products = _productService.GetSearchResult(q)
-            };
-            return View("Index", productViewModel);
         }
         public async Task<IActionResult> RestApi()
         {

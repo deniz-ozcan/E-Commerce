@@ -16,9 +16,9 @@ namespace scrapapp.webui.Extensions
                     {
                         applicationContext.Database.Migrate();
                     }
-                    catch (System.Exception)
+                    catch (Exception)
                     {
-                        throw;
+                        Console.WriteLine("Application context migration failed");
                     }
                 }
                 using var shopContext = scope.ServiceProvider.GetRequiredService<ShopContext>();
@@ -26,9 +26,9 @@ namespace scrapapp.webui.Extensions
                 {
                     shopContext.Database.Migrate();
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
-                    throw;
+                    Console.WriteLine("ShopContext migration failed");
                 }
             }
             return host;

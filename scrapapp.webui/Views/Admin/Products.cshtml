@@ -42,26 +42,25 @@
                   @foreach (var product in Model.Products)
                   {
                     <tr class="hoverme">
-                      <td><img src="@product.Detail.Image" width="80"></td>
-                      <td scope="row">@product.Detail.Name</td>
+                      <td><img src="@product.Image" width="80"></td>
+                      <td scope="row">@product.Brand</td>
                       <td scope="row">
-                        @(@product.Detail.Model.Length > 10 ? @product.Detail.Model.Substring(0, 10) + "..." : @product.Detail.Model)
+                        @(@product.Model.Length > 10 ? @product.Model.Substring(0, 10) + "..." : @product.Model)
                       </td>
                       <td scope="row">@product.Price</td>
                       <td scope="row">
                         <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;">
-                          <li style="margin-right:5px">@((int)product.Rate)</li>
                           @for (int j = 0; j < (int)product.Rate; j++){<li style="color:#FFC000;">★</li>}
                           @for (int k = 0; k < 5-(int)product.Rate; k++){<li style="color:#D8D8D8;">★</li>}
                         </ul>
                       </td>
-                      <td scope="row">@product.Detail.Ram</td> 
-                      <td scope="row">@product.Detail.Storage</td> 
-                      <td scope="row">@product.Detail.Processor</td>
-                      <td scope="row">@product.Detail.System</td>
-                      <td scope="row">@product.Detail.Screen</td>
+                      <td scope="row">@product.Ram</td> 
+                      <td scope="row">@product.Storage</td> 
+                      <td scope="row">@product.Processor</td>
+                      <td scope="row">@product.System</td>
+                      <td scope="row">@product.Screen</td>
                       <td scope="row">
-                        @if(product.is_updated)
+                        @if(product.isUpdated)
                         {
                           <img src="~/img/check.svg" width="25px"/>
                         }else{
@@ -70,7 +69,7 @@
                       </td>
                       <td >
                         <form asp-controller="Admin" asp-action="Delete">
-                          <input type="hidden" name="slug" value="@product.Detail.Slug"/>
+                          <input type="hidden" name="slug" value="@product.Id"/>
                           <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                       </td>

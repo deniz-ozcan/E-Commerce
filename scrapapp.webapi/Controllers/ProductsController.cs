@@ -18,7 +18,7 @@ namespace scrapapp.webapi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _productService.GetAllProducts();
+            var products = await _productService.GetAllProductsAsync();
 
             var productsDTO = new List<ProductDTO>();
 
@@ -31,9 +31,9 @@ namespace scrapapp.webapi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct(string slug)
+        public async Task<IActionResult> GetProduct(int id)
         {
-            var p = await _productService.GetBySlug(slug);
+            var p = await _productService.GetByIdAsync(id);
             if (p == null)
             {
                 return NotFound(); // 404
@@ -49,14 +49,14 @@ namespace scrapapp.webapi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(string slug, Product entity)
+        public async Task<IActionResult> UpdateProduct(int id, Product entity)
         {
-            if (slug.Equals(entity.Detail.Slug) == false)
+            if (id.Equals(entity.Id) == false)
             {
                 return BadRequest();
             }
 
-            var product = await _productService.GetBySlug(slug);
+            var product = await _productService.GetByIdAsync(id);
 
             if (product == null)
             {
@@ -68,9 +68,9 @@ namespace scrapapp.webapi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(string slug)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _productService.GetBySlug(slug);
+            var product = await _productService.GetByIdAsync(id);
 
             if (product == null)
             {
@@ -85,10 +85,11 @@ namespace scrapapp.webapi.Controllers
         {
             return new ProductDTO
             {
-                ProductId = p.Id,
-                Name = p.Detail.Name,
+                Id = p.Id,
+                Brand = p.Brand,
                 Price = p.Price,
-                Url = p.Detail.Image,
+                Model = p.Model,
+                Rate = p.Rate
             };
         }
     }

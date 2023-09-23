@@ -147,19 +147,19 @@ namespace scrapapp.webui.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Products() => View( new ProductViewModel() { Products = await _productService.GetAllProducts() });
-        public async Task<IActionResult> DeleteProduct(string slug)
+        public async Task<IActionResult> Products() => View( new ProductViewModel() { Products = await _productService.GetAllProductsAsync() });
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            var entity = await _productService.GetBySlug(slug);
+            var entity = await _productService.GetByIdAsync(id);
 
             if (entity != null)
             {
-                _productService.Delete(entity);
+                await _productService.DeleteAsync(entity);
             }
 
             var msg = new AlertMessage()
             {
-                Message = $"{entity.Detail.Name} isimli ürün silindi.",
+                Message = $"{entity.Brand} isimli ürün silindi.",
                 AlertType = "danger"
             };
             TempData["message"] = JsonConvert.SerializeObject(msg);

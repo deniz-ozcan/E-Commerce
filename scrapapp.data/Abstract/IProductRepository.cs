@@ -4,12 +4,9 @@ namespace scrapapp.data.Abstract
 {
     public interface IProductRepository : IRepository<Product>
     {
-        Product GetProductDetails(string url);
-        Product GetBySlugWithCategories(string slug);
-        List<Product> GetProductsByCategory(string name, int page, int pageSize);
-        List<Product> GetSearchResult(string searchString);
-        int GetCountByCategory(string category);
-        void Update(Product entity, int[] categoryIds);
-        Task<List<Product>> GetAllProducts();
+        Task<Product> GetByIdAsync(int id);
+        Task<List<Product>> GetProductsByCategoryAsync(string name, int page, int pageSize);
+        Task<int> GetProductsCountByCategoryAsync(string category);
+        Task<List<Product>> GetAllProductsAsync();
     }
 }

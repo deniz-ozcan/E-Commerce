@@ -18,25 +18,17 @@ namespace scrapapp.data.Concrete.EfCore
         {
             await context.Set<TEntity>().AddAsync(entity);
         }
+        public virtual void Update(TEntity entity)
+        {
+            context.Entry(entity).State = EntityState.Modified;
+        }
         public void Delete(TEntity entity)
         {
             context.Set<TEntity>().Remove(entity);
         }
-        public async Task<List<TEntity>> GetAll()
-        {
-            return await context.Set<TEntity>().ToListAsync();
-        }
         public async Task<TEntity> GetById(int id)
         {
             return await context.Set<TEntity>().FindAsync(id);
-        }
-        public async Task<TEntity> GetBySlug(string slug)
-        {
-            return await context.Set<TEntity>().FindAsync(slug);
-        }
-        public virtual void Update(TEntity entity)
-        {
-            context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

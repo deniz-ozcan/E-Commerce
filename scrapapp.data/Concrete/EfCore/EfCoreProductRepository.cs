@@ -11,60 +11,22 @@ namespace scrapapp.data.Concrete.EfCore
         {
             get { return context as ShopContext; }
         }
-        public async Task<List<Product>> GetAllProducts()
+        public async Task<List<Product>> GetAllProductsAsync()
         {
             return await ShopContext.Products
-                    .Select(i => new Product { Detail = i.Detail, SitesInformation = i.SitesInformation, Rate = i.Rate, Price = i.Price, is_updated = i.is_updated })
                     .ToListAsync();
         }
-        public Product GetBySlugWithCategories(string slug)
+        public async Task<Product> GetByIdAsync(int Id)
         {
-            return ShopContext.Products
-                    .Select(i => new Product { Detail = i.Detail, SitesInformation = i.SitesInformation, Rate = i.Rate, Price = i.Price, is_updated = i.is_updated })
-                    .Where(i => i.Detail.Slug == slug)
-                    .FirstOrDefault();
+            return await ShopContext.Products.Include(p => p.Sites).FirstOrDefaultAsync(p => p.Id == Id);
         }
-        public int GetCountByCategory(string category)
+        public async Task<List<Product>> GetProductsByCategoryAsync(string name, int page, int pageSize)
         {
-            return ShopContext.Products.Count();
+            return await ShopContext.Products.OrderBy(p => p.Id) .Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
-        public Product GetProductDetails(string url)
+        public async Task<int> GetProductsCountByCategoryAsync(string category)
         {
-            return ShopContext.Products
-                    .Select(i => new Product { Detail = i.Detail, SitesInformation = i.SitesInformation, Rate = i.Rate, Price = i.Price, is_updated = i.is_updated })
-                    .Where(i => i.Detail.Slug == url)
-                    .FirstOrDefault();
-
-        }
-        public List<Product> GetProductsByCategory(string name, int page, int pageSize)
-        {
-            return ShopContext.Products
-                    .Select(i => new Product { Detail = i.Detail, SitesInformation = i.SitesInformation, Rate = i.Rate, Price = i.Price, is_updated = i.is_updated })
-                    .Skip((page - 1) * pageSize).Take(pageSize).ToList();
-        }
-        public List<Product> GetSearchResult(string searchString)
-        {
-            var products = ShopContext.Products
-                .Select(i => new Product { Detail = i.Detail, SitesInformation = i.SitesInformation, Rate = i.Rate, Price = i.Price, is_updated = i.is_updated })
-                .Where(i =>
-                    i.Detail.Name.ToLower().Contains(searchString.ToLower()) ||
-                    i.Detail.Model.ToLower().Contains(searchString.ToLower())
-                ).AsQueryable();
-
-            return products.ToList();
-        }
-
-        public void Update(Product entity, int[] categoryIds)
-        {
-            var product = ShopContext.Products
-                .Select(i => new Product { Detail = i.Detail, SitesInformation = i.SitesInformation, Rate = i.Rate, Price = i.Price, is_updated = i.is_updated })
-                .FirstOrDefault(i => i.Id == entity.Id);
-            if (product != null)
-            {
-                product.Detail.Name = entity.Detail.Name;
-                product.Price = entity.Price;
-                product.Detail.Image = entity.Detail.Image;
-            }
+            return await ShopContext.Products.CountAsync();
         }
     }
 }

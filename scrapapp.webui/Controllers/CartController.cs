@@ -30,9 +30,9 @@ namespace scrapapp.webui.Controllers
                 {
                     CartItemId = i.Id,
                     ProductId = i.ProductId,
-                    Name = i.Product.Detail.Name,
+                    Name = i.Product.Brand,
                     Price = (double)i.Product.Price,
-                    ImageUrl = i.Product.Detail.Image,
+                    ImageUrl = i.Product.Image,
                     Quantity = i.Quantity
                 }).ToList()
             });
@@ -66,9 +66,9 @@ namespace scrapapp.webui.Controllers
                 {
                     CartItemId = i.Id,
                     ProductId = i.ProductId,
-                    Name = i.Product.Detail.Name,
+                    Name = i.Product.Brand,
                     Price = (double)i.Product.Price,
-                    ImageUrl = i.Product.Detail.Image,
+                    ImageUrl = i.Product.Image,
                     Quantity = i.Quantity
                 }).ToList()
             };
@@ -89,9 +89,9 @@ namespace scrapapp.webui.Controllers
                     {
                         CartItemId = i.Id,
                         ProductId = i.ProductId,
-                        Name = i.Product.Detail.Name,
+                        Name = i.Product.Brand,
                         Price = (double)i.Product.Price,
-                        ImageUrl = i.Product.Detail.Image,
+                        ImageUrl = i.Product.Image,
                         Quantity = i.Quantity
                     }).ToList()
                 };
@@ -125,10 +125,10 @@ namespace scrapapp.webui.Controllers
                 orderModel.OrderItems = order.OrderItems.Select(i => new OrderItemModel()
                 {
                     OrderItemId = i.Id,
-                    Name = i.Product.Detail.Name,
+                    Name = i.Product.Brand,
                     Price = (double)i.Price,
                     Quantity = i.Quantity,
-                    ImageUrl = i.Product.Detail.Image
+                    ImageUrl = i.Product.Image
                 }).ToList();
 
                 orderListModel.Add(orderModel);

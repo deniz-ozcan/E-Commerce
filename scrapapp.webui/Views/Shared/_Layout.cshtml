@@ -9,13 +9,22 @@
     <link rel="icon" href="~/img/python.svg" type="image/x-icon">
     @RenderSection("title", required: true)
     <style>
-      body {background-color: #fff!important;}
+      body {
+        background-color: #fff!important;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
       .btnhover:hover{background-color: #00000010!important;}
       .accordion-item {background-color: #fff;border: 0px solid #00000020; }
       .accordion-button:not(.collapsed) {color: #ff8800;background-color: #fff;box-shadow: none;}
       .accordion-button:focus {z-index: 3;background-color: #fff;border-color: #fff;outline: 0;box-shadow: none;}
       input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0;}
       input[type=number] {-moz-appearance: textfield;}
+      .sticky-footer {
+          position: sticky;
+          bottom: 0;
+      }
     </style>
     @RenderSection("css_files", required: false)
 </head>
@@ -29,15 +38,15 @@
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a href="/" class="nav-link">Products</a>
+              <a asp-controller="/" class="nav-link">Products</a>
             </li>
             @if (User.Identity.IsAuthenticated)
             {
               <li class="nav-item">
-                <a href="/Cart" class="nav-link">Cart</a>
+                <a asp-controller="Cart" asp-action="Index" class="nav-link">Cart</a>
               </li>
               <li class="nav-item">
-                <a href="/Orders" class="nav-link">Orders</a>
+                <a asp-controller="Order" asp-action="Index" class="nav-link">Orders</a>
               </li>
               if (User.IsInRole("admin"))
               {
@@ -45,10 +54,10 @@
                   <a asp-controller="Admin" asp-action="Products" class="nav-link">Admin Products</a>
                 </li>
                 <li class="nav-item">
-                  <a href="~/Admin/Role/List" class="nav-link">Roles</a>
+                  <a asp-controller="Admin" asp-action="RoleList" class="nav-link">Roles</a>
                 </li>
                 <li class="nav-item">
-                  <a href="~/Admin/User/List" class="nav-link">Users</a>
+                  <a asp-controller="Admin" asp-action="UserList" class="nav-link">Users</a>
                 </li>
               }
             }
@@ -81,7 +90,7 @@
         <partial name="_ResultMessage" model="@(TempData.Get<AlertMessage>("message"))"/>
     }   
     @RenderBody()
-    <footer id="footer" class="py-5 bg-dark text-white text-center mt-3">Scrap App</footer>
+    <footer id="footer" class="sticky-footer py-5 bg-dark text-white text-center mt-3">Scrap App</footer>
     @RenderSection("JavaScript",false)
     <script src="~/js/bootstrap.js"></script>
 </body>

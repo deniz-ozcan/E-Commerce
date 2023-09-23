@@ -8,8 +8,7 @@ namespace scrapapp.data.Concrete.EfCore
     {
         public ShopContext(DbContextOptions options) : base(options) { }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Detail> Details { get; set; }
-        public DbSet<SitesInformation> SitesInformations { get; set; }
+        public DbSet<Site> Sites { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -17,6 +16,7 @@ namespace scrapapp.data.Concrete.EfCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new SiteConfiguration());
             modelBuilder.Seed();
         }
     }

@@ -7,53 +7,59 @@ namespace scrapapp.data.Configurations
     {
         public static void Seed(this ModelBuilder builder)
         {
-            var sitesInfo = new List<SitesInformation>();
-            var details = new List<Detail>();
+            var sitesInfo = new List<Site>();
+            var details = new List<Product>();
             var products = new List<Product>();
-            float price = 0.0f, rate = 0.0f;
-            int count = 0;
+            decimal price = 0;
+            double rate = 0.0f;
             var sites = File.ReadAllLines("../scrapapp.data/Configurations/InitialData/siteInformations.csv");
             foreach (var line in sites)
             {
                 var fields = line.Split(',');
-                sitesInfo.Add(new SitesInformation { SitesInformationId = int.Parse(fields[0]), Link = fields[1], Rate = float.Parse(fields[2]), Price = float.Parse(fields[3]), SiteName = fields[4], ProductId = int.Parse(fields[5]) });
+                sitesInfo.Add(new Site { Id = int.Parse(fields[0]), Url = fields[1], Rate = float.Parse(fields[2]), Price = decimal.Parse(fields[3]), SiteName = fields[4], ProductId = int.Parse(fields[5]) });
             }
             var pros = File.ReadAllLines("../scrapapp.data/Configurations/InitialData/Products.csv");
             foreach (var line in pros)
             {
                 var fields = line.Split(',');
-                details.Add(new Detail { DetailId = int.Parse(fields[0]), Name = fields[2], Model = fields[1], Processor = fields[6], Ram = fields[5], Screen = fields[4], Storage = fields[7], System = fields[8], Image = fields[9], Slug = fields[3], ProductId = int.Parse(fields[0]) });
+                details.Add(new Product { Id = int.Parse(fields[0]), Brand = fields[1], Model = fields[2], Screen = fields[3], Ram = fields[4], Processor = fields[5], Storage = fields[6], System = fields[7], Image = fields[8]});
             }
             for (int i = 0; i < details.Count; i++)
             {
-                var info = new List<SitesInformation>();
+                var info = new List<Site>();
                 for (int j = 0; j < sitesInfo.Count; j++)
                 {
-                    if (details[i].DetailId == sitesInfo[j].ProductId)
+                    if (details[i].Id == sitesInfo[j].ProductId)
                     {
                         info.Add(sitesInfo[j]);
                         price = info[0].Price;
                         rate = info[0].Rate;
-                        count++;
                     }
                 }
                 var product = new Product
                 {
-                    Id = details[i].DetailId,
-                    DetailId = details[i].DetailId,
+                    Id = details[i].Id,
+                    Brand = details[i].Brand,
+                    Model = details[i].Model,
+                    Screen = details[i].Screen,
+                    Ram = details[i].Ram,
+                    Processor = details[i].Processor,
+                    Storage = details[i].Storage,
+                    System = details[i].System,
+                    Image = details[i].Image,
                     Price = price,
                     Rate = rate,
-                    is_updated = false
+                    isUpdated = false,
+                    Sites = info
                 };
                 products.Add(product);
-                foreach (var sitesInformation in info)
-                {
-                    sitesInformation.ProductId = product.Id;
-                }
+                info.Clear();
             }
-            builder.Entity<SitesInformation>().HasData(sitesInfo.ToArray());
-            builder.Entity<Detail>().HasData(details.ToArray());
+            details.Clear();
+            builder.Entity<Site>().HasData(sitesInfo.ToArray());
             builder.Entity<Product>().HasData(products.ToArray());
+            products.Clear();
+            sitesInfo.Clear();
         }
     }
 }

@@ -131,21 +131,21 @@ namespace scrapapp.webui
                 endpoints.MapControllerRoute(
                     name: "Search",
                     pattern: "Search",
-                    defaults: new { controller = "Home", action = "Search" }
+                    defaults: new { controller = "Product", action = "Search" }
                 );
                 endpoints.MapControllerRoute(
                     name: "ProductDetails",
                     pattern: "{url}",
-                    defaults: new { controller = "Home", action = "Detail" }
+                    defaults: new { controller = "Product", action = "Detail" }
                 );
                 endpoints.MapControllerRoute(
                     name: "Products",
                     pattern: "Products",
-                    defaults: new { controller = "Home", action = "Index" }
+                    defaults: new { controller = "Product", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{slug?}"
+                    pattern: "{controller=Product}/{action=Index}/{slug?}"
                 );
             });
             SeedIdentity.Seed(userManager, roleManager, cartService, configuration).Wait();

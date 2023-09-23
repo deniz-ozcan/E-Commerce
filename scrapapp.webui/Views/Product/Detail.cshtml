@@ -25,26 +25,26 @@
     <div class="card mb-3">
       <div class="row g-0">
         <div class="col-md-3">
-            <img src="@Model.Detail.Image" alt="@Model.Detail.Name" class="card-img-top img-fluid img-thumbnail"/>
+            <img src="@Model.Image" alt="@Model.Brand" class="card-img-top img-fluid img-thumbnail"/>
         </div>
         <div class="col-md-9">
           <div class="card-body">
             <div class="list-group list-group-flush fs-5">
-              <li class="list-group-item" style="border:none;">Brand: <h1 class="fs-4" style="color:#F50057;display:inline;">@Model.Detail.Name</h1></li>
-              <li class="list-group-item" style="border:none;color:#666;">Model: @Model.Detail.Model</li>
-              <li class="list-group-item" style="border:none;color:#666;">Ram: @Model.Detail.Ram  </li>
-              <li class="list-group-item" style="border:none;color:#666;">Storage: @Model.Detail.Storage SSD</li>
-              <li class="list-group-item" style="border:none;color:#666;">Processor: @Model.Detail.Processor</li>
-              <li class="list-group-item" style="border:none;color:#666;">System: @Model.Detail.System</li>
-              <li class="list-group-item" style="border:none;color:#666;">Screen: @Model.Detail.Screen</li>
+              <li class="list-group-item" style="border:none;">Brand: <h1 class="fs-4" style="color:#F50057;display:inline;">@Model.Brand</h1></li>
+              <li class="list-group-item" style="border:none;color:#666;">Model: @Model.Model</li>
+              <li class="list-group-item" style="border:none;color:#666;">Ram: @Model.Ram  </li>
+              <li class="list-group-item" style="border:none;color:#666;">Storage: @Model.Storage SSD</li>
+              <li class="list-group-item" style="border:none;color:#666;">Processor: @Model.Processor</li>
+              <li class="list-group-item" style="border:none;color:#666;">System: @Model.System</li>
+              <li class="list-group-item" style="border:none;color:#666;">Screen: @Model.Screen</li>
             </div>
           </div>
           <div class="list-group list-group-flush list-group-horizontal mb-4">
-            @foreach (var site in Model.SitesInformation)
+            @foreach (var site in Model.Sites)
             {
               <li class="list-group-item" style="border:none;">
                 <ul class="list-group colorme">
-                  <a href="@site.Link" class="list-group-item">
+                  <a href="@site.Url" class="list-group-item">
                     <img src="~/img/@(site.SiteName).svg" alt="" style="width:5rem;" />
                     @if ((int)site.Rate > 0 ){
                       <li class="list-group-item p-0 pt-2" style="font-size:1rem;border:none;">

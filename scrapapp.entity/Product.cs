@@ -3,18 +3,30 @@ namespace scrapapp.entity
 {
     public class Product
     {
+        [Key]
         public int Id { get; set; }
         [Required]
-        public int DetailId { get; set; }
+        public string Brand { get; set; }
         [Required]
-        public Detail Detail { get; set; }
+        public string Model { get; set; }
         [Required]
-        public float Rate { get; set; }
+        public string Screen { get; set; }
         [Required]
-        public float Price { get; set; }
+        public string Ram { get; set; }
         [Required]
-        public bool is_updated { get; set; }
+        public string Processor { get; set; }
         [Required]
-        public List<SitesInformation> SitesInformation { get; set; }
+        public string Storage { get; set; }
+        [Required]
+        public string System { get; set; }
+        [Required]
+        public string Image { get; set; }
+        [Required]
+        public decimal Price { get; set; }
+        [Required]
+        public bool isUpdated { get; set; }
+        [Required]
+        public double Rate { get; set; }
+        public List<Site> Sites { get; set; }
     }
 }

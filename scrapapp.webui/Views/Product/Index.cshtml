@@ -28,16 +28,16 @@
           @foreach (var proc in Model.Products)
           {
             string cls = "";
-            if(proc.is_updated==true){
+            if(proc.isUpdated==true){
               cls = "bg-primary";
             }
-            <a asp-controller="Home" asp-action="Detail" asp-route-slug="@proc.Detail.Slug" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
+            <a asp-controller="Product" asp-action="Detail" asp-route-id="@proc.Id" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
               <div class="card mb-3 me-3 border-info @cls bg-dark popupcard">
-                  <img src="@proc.Detail.Image" alt="" class="card-img-top img-fluid img-thumbnail"/>
+                  <img src="@proc.Image" alt="" class="card-img-top img-fluid img-thumbnail"/>
                 <div class="card-body">
-                  <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">@proc.Detail.Name</p>
+                  <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">@proc.Brand</p>
                   <p class="card-title fs-6 info" style="color:#fff;display:inline;font-size:1rem;"> 
-                    @proc.Detail.Model @proc.Detail.Ram RAM @proc.Detail.Storage SSD @proc.Detail.Processor @proc.Detail.System @proc.Detail.Screen
+                    @proc.Model @proc.Ram RAM @proc.Storage SSD @proc.Processor @proc.System @proc.Screen
                   </p>
                 </div>
                   <div class="card-footer">
