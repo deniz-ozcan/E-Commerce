@@ -26,9 +26,5 @@ namespace scrapapp.data.Concrete.EfCore
         {
             context.Set<TEntity>().Remove(entity);
         }
-        public async Task<TEntity> GetById(int id)
-        {
-            return await context.Set<TEntity>().FindAsync(id);
-        }
     }
 }

@@ -21,10 +21,6 @@
       .accordion-button:focus {z-index: 3;background-color: #fff;border-color: #fff;outline: 0;box-shadow: none;}
       input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0;}
       input[type=number] {-moz-appearance: textfield;}
-      .sticky-footer {
-          position: sticky;
-          bottom: 0;
-      }
     </style>
     @RenderSection("css_files", required: false)
 </head>
@@ -38,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a asp-controller="/" class="nav-link">Products</a>
+                <a href="~/" class="nav-link">Products</a>
             </li>
             @if (User.Identity.IsAuthenticated)
             {
@@ -46,9 +42,9 @@
                 <a asp-controller="Cart" asp-action="Index" class="nav-link">Cart</a>
               </li>
               <li class="nav-item">
-                <a asp-controller="Order" asp-action="Index" class="nav-link">Orders</a>
+                <a asp-controller="Cart" asp-action="GetOrders" class="nav-link">Orders</a>
               </li>
-              if (User.IsInRole("admin"))
+              if (User.IsInRole("Admin"))
               {
                 <li class="nav-item">
                   <a asp-controller="Admin" asp-action="Products" class="nav-link">Admin Products</a>
@@ -90,7 +86,7 @@
         <partial name="_ResultMessage" model="@(TempData.Get<AlertMessage>("message"))"/>
     }   
     @RenderBody()
-    <footer id="footer" class="sticky-footer py-5 bg-dark text-white text-center mt-3">Scrap App</footer>
+    <footer id="footer" class="py-5 bg-dark text-white text-center mt-3">Scrap App</footer>
     @RenderSection("JavaScript",false)
     <script src="~/js/bootstrap.js"></script>
 </body>

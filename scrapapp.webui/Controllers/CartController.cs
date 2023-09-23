@@ -57,20 +57,21 @@ namespace scrapapp.webui.Controllers
         {
             var cart = _cartService.GetCartByUserId(_userManager.GetUserId(User));
 
-            var orderModel = new OrderModel();
-
-            orderModel.CartModel = new CartModel()
+            var orderModel = new OrderModel
             {
-                CartId = cart.Id,
-                CartItems = cart.CartItems.Select(i => new CartItemModel()
+                CartModel = new CartModel()
                 {
-                    CartItemId = i.Id,
-                    ProductId = i.ProductId,
-                    Name = i.Product.Brand,
-                    Price = (double)i.Product.Price,
-                    ImageUrl = i.Product.Image,
-                    Quantity = i.Quantity
-                }).ToList()
+                    CartId = cart.Id,
+                    CartItems = cart.CartItems.Select(i => new CartItemModel()
+                    {
+                        CartItemId = i.Id,
+                        ProductId = i.ProductId,
+                        Name = i.Product.Brand,
+                        Price = (double)i.Product.Price,
+                        ImageUrl = i.Product.Image,
+                        Quantity = i.Quantity
+                    }).ToList()
+                }
             };
             return View(orderModel);
         }
@@ -110,26 +111,28 @@ namespace scrapapp.webui.Controllers
             OrderListModel orderModel;
             foreach (var order in orders)
             {
-                orderModel = new OrderListModel();
-                orderModel.OrderId = order.Id;
-                orderModel.OrderNumber = order.OrderNumber;
-                orderModel.OrderDate = order.OrderDate;
-                orderModel.Phone = order.Phone;
-                orderModel.FirstName = order.FirstName;
-                orderModel.LastName = order.LastName;
-                orderModel.Email = order.Email;
-                orderModel.Address = order.Address;
-                orderModel.City = order.City;
-                orderModel.OrderState = order.OrderState;
-                orderModel.PaymentType = order.PaymentType;
-                orderModel.OrderItems = order.OrderItems.Select(i => new OrderItemModel()
+                orderModel = new OrderListModel
                 {
-                    OrderItemId = i.Id,
-                    Name = i.Product.Brand,
-                    Price = (double)i.Price,
-                    Quantity = i.Quantity,
-                    ImageUrl = i.Product.Image
-                }).ToList();
+                    OrderId = order.Id,
+                    OrderNumber = order.OrderNumber,
+                    OrderDate = order.OrderDate,
+                    Phone = order.Phone,
+                    FirstName = order.FirstName,
+                    LastName = order.LastName,
+                    Email = order.Email,
+                    Address = order.Address,
+                    City = order.City,
+                    OrderState = order.OrderState,
+                    PaymentType = order.PaymentType,
+                    OrderItems = order.OrderItems.Select(i => new OrderItemModel()
+                    {
+                        OrderItemId = i.Id,
+                        Name = i.Product.Brand,
+                        Price = (double)i.Price,
+                        Quantity = i.Quantity,
+                        ImageUrl = i.Product.Image
+                    }).ToList()
+                };
 
                 orderListModel.Add(orderModel);
             }
@@ -162,12 +165,12 @@ namespace scrapapp.webui.Controllers
                 City = model.City,
                 Note = model.Note,
 
-                OrderItems = new List<entity.OrderItem>()
+                OrderItems = new List<OrderItem>()
             };
 
             foreach (var item in model.CartModel.CartItems)
             {
-                var orderItem = new scrapapp.entity.OrderItem()
+                var orderItem = new OrderItem()
                 {
                     Price = item.Price,
                     Quantity = item.Quantity,

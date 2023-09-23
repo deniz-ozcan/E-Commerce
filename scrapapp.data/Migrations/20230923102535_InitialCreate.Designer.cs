@@ -11,7 +11,7 @@ using scrapapp.data.Concrete.EfCore;
 namespace scrapapp.data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20230923004258_InitialCreate")]
+    [Migration("20230923102535_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

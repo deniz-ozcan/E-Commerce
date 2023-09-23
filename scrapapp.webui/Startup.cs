@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using scrapapp.business.Abstract;
 using scrapapp.business.Concrete;
 using scrapapp.data.Abstract;
@@ -22,7 +23,6 @@ namespace scrapapp.webui
             services.AddDbContext<ApplicationContext>(options => options.UseSqlite(_configuration.GetConnectionString("SqliteConnection")));
             services.AddDbContext<ShopContext>(options => options.UseSqlite(_configuration.GetConnectionString("SqliteConnection")));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
-
             services.Configure<IdentityOptions>(options =>
             {
                 // password
@@ -53,14 +53,17 @@ namespace scrapapp.webui
                 options.Cookie = new CookieBuilder
                 {
                     HttpOnly = true,
-                    Name = ".ScrapApp.Security.Cookie",
+                    Name = ".ProductApp.Security.Cookie",
                     SameSite = SameSiteMode.Strict
                 };
             });
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICartService, CartManager>();
             services.AddScoped<IOrderService, OrderManager>();
+
             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
                 new SmtpEmailSender(
                     _configuration["EmailSender:Host"],
@@ -69,6 +72,7 @@ namespace scrapapp.webui
                     _configuration["EmailSender:UserName"],
                     _configuration["EmailSender:Password"])
                 );
+
             services.AddControllersWithViews();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ICartService cartService)

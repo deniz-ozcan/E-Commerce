@@ -31,7 +31,7 @@ namespace scrapapp.webui.Controllers
         {
             if (id < 1)
             {
-                return NotFound();
+                return await Task.FromResult<IActionResult>(BadRequest());
             }
             Product product = await _productService.GetByIdAsync(id);
             return product == null ? NotFound() : View(product);

@@ -8,7 +8,7 @@ using scrapapp.webui.Models;
 
 namespace scrapapp.webui.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IProductService _productService;
