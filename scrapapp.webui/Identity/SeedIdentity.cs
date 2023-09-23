@@ -30,7 +30,6 @@ namespace scrapapp.webui.Identity
                 var lastName = section.GetValue<string>("lastName");
                 if(await userManager.FindByNameAsync(username)==null)
                 {
-                    Console.WriteLine(username);
                     var user = new User()
                     {
                         UserName = username,
@@ -42,7 +41,6 @@ namespace scrapapp.webui.Identity
                     var result = await userManager.CreateAsync(user,password);
                     if(result.Succeeded)
                     {
-                        Console.WriteLine(username);
                         await userManager.AddToRoleAsync(user,role);
                         cartService.InitializeCart(user.Id);
                     }

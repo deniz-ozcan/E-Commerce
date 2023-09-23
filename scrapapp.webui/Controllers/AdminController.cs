@@ -23,27 +23,23 @@ namespace scrapapp.webui.Controllers
         public async Task<IActionResult> UserEdit(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            if (user != null)
+            var selectedRoles = await _userManager.GetRolesAsync(user);
+            var roles = _roleManager.Roles.Select(i => i.Name);
+            ViewBag.Roles = roles;
+            return View(new UserDetailsModel()
             {
-                var selectedRoles = await _userManager.GetRolesAsync(user);
-                var roles = _roleManager.Roles.Select(i => i.Name);
-                ViewBag.Roles = roles;
-                return View(new UserDetailsModel()
-                {
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    EmailConfirmed = user.EmailConfirmed,
-                    SelectedRoles = selectedRoles
-                });
-            }
-            return Redirect("~/Admin/User/List");
+                UserId = user.Id,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                SelectedRoles = selectedRoles
+            });
         }
 
         [HttpPost]
-        public async Task<IActionResult> UserEdit(UserDetailsModel model, string[] selectedRoles)
+        public async Task<IActionResult> UserUpdate(UserDetailsModel model, string[] selectedRoles)
         {
             if (ModelState.IsValid)
             {
@@ -61,11 +57,10 @@ namespace scrapapp.webui.Controllers
                     await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
                     await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles).ToArray<string>());
                 }
-                return Redirect("~/Admin/User/List");
+                return RedirectToAction("UserList");
             }
             return View(model);
         }
-
         public IActionResult UserList() => View(_userManager.Users);
         public IActionResult RoleList() => View(_roleManager.Roles);
         public IActionResult RoleCreate() => View();
@@ -88,7 +83,7 @@ namespace scrapapp.webui.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> RoleEdit(RoleEditModel model)
+        public async Task<IActionResult> RoleUpdate(RoleEditModel model)
         {
             if (ModelState.IsValid)
             {
@@ -122,10 +117,10 @@ namespace scrapapp.webui.Controllers
                         }
                     }
                 }
+                return RedirectToAction("RoleList");
             }
             return Redirect("/Admin/Role/" + model.RoleId);
         }
-
         [HttpPost]
         public async Task<IActionResult> RoleCreate(RoleModel model)
         {
@@ -146,7 +141,6 @@ namespace scrapapp.webui.Controllers
             }
             return View(model);
         }
-
         public async Task<IActionResult> Products() => View( new ProductViewModel() { Products = await _productService.GetAllProductsAsync() });
         public async Task<IActionResult> DeleteProduct(int id)
         {
@@ -164,6 +158,38 @@ namespace scrapapp.webui.Controllers
             };
             TempData["message"] = JsonConvert.SerializeObject(msg);
             return RedirectToAction("Products");
+        }
+
+        public async Task<IActionResult> DeleteRole(string RoleId)
+        {
+            var role = await _roleManager.FindByIdAsync(RoleId);
+            if (role != null)
+            {
+                await _roleManager.DeleteAsync(role);
+            }
+            var msg = new AlertMessage()
+            {
+                Message = $"{role.Name} isimli rol silindi.",
+                AlertType = "danger"
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
+            return RedirectToAction("RoleList");
+        }
+
+        public async Task<IActionResult> DeleteUser(string UserId)
+        {
+            var user = await _userManager.FindByIdAsync(UserId);
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
+            var msg = new AlertMessage()
+            {
+                Message = $"{user.UserName} isimli kullanıcı silindi.",
+                AlertType = "danger"
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
+            return RedirectToAction("UserList");
         }
     }
 }

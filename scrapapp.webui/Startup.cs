@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using scrapapp.business.Abstract;
 using scrapapp.business.Concrete;
 using scrapapp.data.Abstract;
@@ -53,7 +52,7 @@ namespace scrapapp.webui
                 options.Cookie = new CookieBuilder
                 {
                     HttpOnly = true,
-                    Name = ".ProductApp.Security.Cookie",
+                    Name = ".ScrapApp.Security.Cookie",
                     SameSite = SameSiteMode.Strict
                 };
             });
@@ -105,12 +104,17 @@ namespace scrapapp.webui
                 endpoints.MapControllerRoute(
                     name: "AdminUserEdit",
                     pattern: "Admin/User/{id?}",
-                    defaults: new { controller = "Admin", action = "UserEdit" }
+                    defaults: new { controller = "Admin", action = "UserUpdate" }
                 );
                 endpoints.MapControllerRoute(
                     name: "AdminUsers",
                     pattern: "Admin/User/List",
                     defaults: new { controller = "Admin", action = "UserList" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "AdminRoleEdit",
+                    pattern: "Admin/Role/{id?}",
+                    defaults: new { controller = "Admin", action = "RoleUpdate" }
                 );
                 endpoints.MapControllerRoute(
                     name: "AdminRoles",
@@ -119,13 +123,8 @@ namespace scrapapp.webui
                 );
                 endpoints.MapControllerRoute(
                     name: "AdminRoleCreate",
-                    pattern: "Admin/Role/create",
+                    pattern: "Admin/Role/Create",
                     defaults: new { controller = "Admin", action = "RoleCreate" }
-                );
-                endpoints.MapControllerRoute(
-                    name: "AdminRoleEdit",
-                    pattern: "Admin/Role/{id?}",
-                    defaults: new { controller = "Admin", action = "RoleEdit" }
                 );
                 endpoints.MapControllerRoute(
                     name: "AdminProducts",
@@ -143,8 +142,8 @@ namespace scrapapp.webui
                     defaults: new { controller = "Product", action = "Detail" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "Products",
-                    pattern: "Products",
+                    name: "Product",
+                    pattern: "Product",
                     defaults: new { controller = "Product", action = "Index" }
                 );
                 endpoints.MapControllerRoute(

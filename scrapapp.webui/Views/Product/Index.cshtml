@@ -20,9 +20,9 @@
       <div class="card-group">
         @if (Model.Products.Count == 0)
         {
-          <h1 class="alert alert-warning text-center m-0">
-            The product you are looking for was not found.
-          </h1>
+          <div class="text-center fs-5 alertdanger">
+            <h1 class="h3">The product you are looking for was not found.</h1>
+          </div> 
         }
         else{
           @foreach (var proc in Model.Products)

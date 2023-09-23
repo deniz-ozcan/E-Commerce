@@ -3,66 +3,63 @@
 @section title {<title>User List | ScrapApp</title>}
 @section css_files
 {
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+<style >
+    .accordion-item {
+        background-color: #fff;
+        border: 0px solid rgba(0,0,0,.125); 
+    }
+    .accordion-button{
+        padding:1.07rem 1.25rem;
+    }
+    .hoverme:hover {background-color: #4cb7f9!important;}
+    .coverme {background-color: #00ff88!important;}
+    .coverme:hover {background-color: #8800ff!important;}
+    .colorbut:hover {background-color: #00ff88!important;}
+</style>
 }
-
-
 <div class="row">
-    <div class="col-md-12">
-        <h1 class="h3">User List</h1>
-        <hr>
-            <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="UserCreate">Create User</a>
-        <hr>
-        <table data-page-length='3' id="myTable" class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <td>FirstName</td>
-                    <td>LastName</td>
-                    <td>UserName</td>
-                    <td>Email</td>
-                    <td>EmailConfirmed</td>
-                    <td style="width: 160px;"></td>
-                </tr>
-            </thead>
-            <tbody>
-                @if(Model.Count()>0)
-                {
-                    @foreach (var item in Model)
-                        {
-                            <tr class="@(item.EmailConfirmed?"":"bg-warning")">
-                                <td>@item.FirstName</td>
-                                <td>@item.LastName</td>                              
-                                <td>@item.UserName</td>                              
-                                <td>@item.Email</td>                              
-                                <td>@item.EmailConfirmed</td>                              
-                                <td>
-                                    <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="UserEdit" asp-route-id="@item.Id">Edit</a>
-                                    <form asp-controller="Admin" asp-action="DeleteUser" method="POST" style="display: inline;">
-                                        <input type="hidden" name="UserId" value="@item.Id">
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-                                </td>
-                        </tr>
-                        }
-                }else{
-                    <div class="alert alert-warning">
-                        <h3>No Users</h3>
-                    </div>
-                }
-            </tbody>
-        </table>
+  <div class="col-md-12">
+    <div class="text-center p-3">
+      <h1>User List</h1>
     </div>
+    @if(Model.Count()>0)
+    {
+      <table class="table table-bordered mt-3 sortable">
+        <thead>
+          <tr>
+            <th scope="col"><button class="btn colorbut">FirstName<span aria-hidden="true"></span></button></th>
+            <th scope="col"><button class="btn colorbut">LastName<span aria-hidden="true"></span></button></th>
+            <th scope="col"><button class="btn colorbut">UserName<span aria-hidden="true"></span></button></th>
+            <th scope="col"><button class="btn colorbut">Email<span aria-hidden="true"></span></button></th>
+            <th scope="col"><button class="btn colorbut">EmailConfirmed<span aria-hidden="true"></span></button></th>
+            <th scope="col" style="width: 160px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var item in Model)
+          {
+          <tr class="@(item.EmailConfirmed?"":" bg-warning")">
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.UserName</td>
+            <td>@item.Email</td>
+            <td>@item.EmailConfirmed</td>
+            <td>
+              <a class="btn btn-outline-primary btn-sm" asp-controller="Admin" asp-action="UserUpdate" asp-route-id="@item.Id">Edit</a>
+              <form asp-controller="Admin" asp-action="DeleteUser" method="POST" style="display: inline;">
+                <input type="hidden" name="UserId" value="@item.Id">
+                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    }else{
+    <div class="text-center fs-5 alertwarning">
+      <h1 class="h3">No User</h1>
+    </div> 
+    }
+  </div>
 </div>
-
-
-@section JavaScript
-{
-    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-
-    <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable();
-        });
-    </script>
-}
+@section JavaScript {<script src="~/js/sorttable.js"></script>}

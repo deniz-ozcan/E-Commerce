@@ -1,93 +1,146 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/style.css">
-    <link rel="icon" href="~/img/python.svg" type="image/x-icon">
-    @RenderSection("title", required: true)
-    <style>
-      body {
-        background-color: #fff!important;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      .btnhover:hover{background-color: #00000010!important;}
-      .accordion-item {background-color: #fff;border: 0px solid #00000020; }
-      .accordion-button:not(.collapsed) {color: #ff8800;background-color: #fff;box-shadow: none;}
-      .accordion-button:focus {z-index: 3;background-color: #fff;border-color: #fff;outline: 0;box-shadow: none;}
-      input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0;}
-      input[type=number] {-moz-appearance: textfield;}
-    </style>
-    @RenderSection("css_files", required: false)
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="~/css/bootstrap.min.css">
+  <link rel="stylesheet" href="~/css/main.css">
+  <link rel="icon" href="~/img/python.svg" type="image/x-icon">
+  @RenderSection("title", required: true)
+  <style>
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+  @RenderSection("css_files", required: false)
 </head>
+
 <body>
-    <nav class="navbar sticky-top navbar-dark bg-dark navbar-expand-md">
-      <div class="container">
-        <a class="navbar-brand" href="/" style="color: #F50057;">ScrapApp</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar">
-          <ul class="navbar-nav mr-auto">
+  <nav class="navbar sticky-top navbar-dark bg-dark navbar-expand-md">
+    <div class="container">
+      <a class="navbar-brand" href="/" style="color: #F50057;">ScrapApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a href="~/" class="nav-link">Products</a>
+          </li>
+          @if (User.Identity.IsAuthenticated)
+          {
             <li class="nav-item">
-                <a href="~/" class="nav-link">Products</a>
+              <a asp-controller="Cart" asp-action="Index" class="nav-link">Cart</a>
             </li>
-            @if (User.Identity.IsAuthenticated)
+            <li class="nav-item">
+              <a asp-controller="Cart" asp-action="GetOrders" class="nav-link">Orders</a>
+            </li>
+            if (User.IsInRole("Admin"))
             {
               <li class="nav-item">
-                <a asp-controller="Cart" asp-action="Index" class="nav-link">Cart</a>
+                <a asp-controller="Admin" asp-action="Products" class="nav-link">Admin Products</a>
               </li>
               <li class="nav-item">
-                <a asp-controller="Cart" asp-action="GetOrders" class="nav-link">Orders</a>
-              </li>
-              if (User.IsInRole("Admin"))
-              {
-                <li class="nav-item">
-                  <a asp-controller="Admin" asp-action="Products" class="nav-link">Admin Products</a>
-                </li>
-                <li class="nav-item">
-                  <a asp-controller="Admin" asp-action="RoleList" class="nav-link">Roles</a>
-                </li>
-                <li class="nav-item">
-                  <a asp-controller="Admin" asp-action="UserList" class="nav-link">Users</a>
-                </li>
-              }
-            }
-          </ul>
-          <ul class="navbar-nav ms-auto">
-            @if (User.Identity.IsAuthenticated)
-            {
-              <li class="nav-item">
-                <a class="nav-link"> @User.Identity.Name.ToUpper() </a>
+                <a asp-controller="Admin" asp-action="RoleList" class="nav-link">Roles</a>
               </li>
               <li class="nav-item">
-                <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+                <a asp-controller="Admin" asp-action="UserList" class="nav-link">Users</a>
               </li>
             }
-            else
-            {
-              <li class="nav-item">
-                <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-              </li>
-              <li class="nav-item">
-                <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
-              </li>
-            }
-          </ul>
-        </div>
+          }
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          @if (User.Identity.IsAuthenticated)
+          {
+            <li class="nav-item">
+              <a class="nav-link"> @User.Identity.Name.ToUpper() </a>
+            </li>
+            <li class="nav-item">
+              <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
+            </li>
+          }
+          else
+          {
+            <li class="nav-item">
+              <a asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+            </li>
+            <li class="nav-item">
+              <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
+            </li>
+          }
+        </ul>
       </div>
-    </nav>
-    @if(TempData["message"]!=null)
-    {
-        <partial name="_ResultMessage" model="@(TempData.Get<AlertMessage>("message"))"/>
-    }   
-    @RenderBody()
-    <footer id="footer" class="py-5 bg-dark text-white text-center mt-3">Scrap App</footer>
-    @RenderSection("JavaScript",false)
-    <script src="~/js/bootstrap.js"></script>
+    </div>
+  </nav>
+  <div class="content"> @RenderBody()</div>
+  @if (TempData["message"] != null)
+  {
+    <partial name="_ResultMessage" model="@(TempData.Get<AlertMessage>("message"))" />
+  }
+  <footer id="footer" class="py-5 bg-dark text-white text-center mt-3 fs-1">ScrapApp</footer>
+  @RenderSection("JavaScript", false)
+  <script>
+    let scs = document.getElementsByClassName("alertsuccess")[0];
+    let dng = document.getElementsByClassName("alertdanger")[0];
+    let wrn = document.getElementsByClassName("alertwarning")[0];
+    let div = document.getElementsByClassName("content")[0];
+    if (scs) {
+      scs.addEventListener("animationend", () => {
+        scs.remove();
+      });
+    }
+    if (dng) {
+      dng.addEventListener("animationend", () => {
+        dng.remove();
+      });
+    }
+    let count = 0;
+    if (wrn) {
+      wrn.addEventListener("animationend", () => {
+        if (count == 0) {
+          if (wrn.innerText == "No Roles") {
+            div.removeChild(div.childNodes[1]);
+            div.insertAdjacentHTML("beforeend",
+              `<div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center p-3">
+                      <h1>Role List</h1>
+                    </div>
+                    <div class="row mt-3">
+                    <div class="col-3 mx-auto">
+                      <div class="alert alert-warning text-center">
+                        ${wrn.innerText}
+                      </div>
+                    </div>
+                  </div>
+                    <div class="container-sm mt-3">
+                      <div class="row justify-content-center">
+                        <a class="col-2 btn btn-outline-primary btn-sm" href="/Admin/Role/Create">Create Role</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>`
+            );
+          } else {
+            div.insertAdjacentHTML("beforeend",
+              `<div class="row mt-3">
+                  <div class="col-3 mx-auto">
+                    <div class="alert alert-warning text-center">
+                      ${wrn.innerText}
+                    </div>
+                  </div>
+                </div>`
+            );
+          }
+        }
+        count++;
+        wrn.remove();
+      });
+    }
+  </script>
+  <script src="~/js/bootstrap.js"></script>
 </body>
+
 </html>
