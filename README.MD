@@ -10,6 +10,7 @@
     <ol>
         <li><a href="#about-the-project"> ➤ About The Project</a></li>
         <li><a href="#overview"> ➤ Overview</a></li>
+        <li><a href="#todo"> ➤ TODO</a></li>
         <li><a href="#howtoinstall"> ➤ How to install</a></li>
         <li><a href="#project-files-description"> ➤ Project Folders Description</a></li>
         <li><a href="#Credits"> ➤ Credits</a></li>
@@ -38,6 +39,26 @@
         You can register, login, log out as both user and admin and use admin panel to change the products of the second web site.
     </li>
 </ul>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+
+<!-- TODO -->
+<h2 id="todo">:pencil: TODO</h2>
+
+- [ ] Filter the products by searching.
+- [ ] Pagination.
+- [ ] Filter the products by their features like Ram, Graphic card, Model, Brand etc.
+- [ ] Admin panels and Cart, Order, User pages styling should be much better.
+  - [ ] Admin Panels
+  - [ ] Cart Pages
+  - [ ] Order Pages
+  - [ ] User Pages
+
+### In Progress
+
+- [ ] Filter the products by searching.
+- [ ] Pagination.
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 

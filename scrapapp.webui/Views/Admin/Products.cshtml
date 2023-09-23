@@ -47,11 +47,17 @@
                       <td scope="row">
                         @(@product.Model.Length > 10 ? @product.Model.Substring(0, 10) + "..." : @product.Model)
                       </td>
-                      <td scope="row">@product.Price</td>
+                      <td scope="row">@(product.Price)</td>
                       <td scope="row">
                         <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;">
-                          @for (int j = 0; j < (int)product.Rate; j++){<li style="color:#FFC000;">★</li>}
-                          @for (int k = 0; k < 5-(int)product.Rate; k++){<li style="color:#D8D8D8;">★</li>}
+                          @if((int)product.Rate > 0){
+                            @for (int j = 0; j < (int)product.Rate; j++){<li style="color:#FFC000;">★</li>}
+                            @for (int k = 0; k < 5-(int)product.Rate; k++){<li style="color:#D8D8D8;">★</li>}
+                          }else{
+                            <li style="color:#ff8800">
+                              No Rating
+                            </li>
+                          }
                         </ul>
                       </td>
                       <td scope="row">@product.Ram</td> 
@@ -68,8 +74,8 @@
                         }
                       </td>
                       <td >
-                        <form asp-controller="Admin" asp-action="Delete">
-                          <input type="hidden" name="slug" value="@product.Id"/>
+                        <form asp-controller="Admin" asp-action="DeleteProduct">
+                          <input type="hidden" name="id" value="@product.Id"/>
                           <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                       </td>

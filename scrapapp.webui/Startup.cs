@@ -149,7 +149,7 @@ namespace scrapapp.webui
                 );
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Product}/{action=Index}/{slug?}"
+                    pattern: "{controller=Product}/{action=Index}/{id?}"
                 );
             });
             SeedIdentity.Seed(userManager, roleManager, cartService, configuration).Wait();
