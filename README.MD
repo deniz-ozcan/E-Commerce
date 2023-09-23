@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="cs.svg" alt="App Logo" width="128px" height="128px" />
+    <img src="netcore.svg" alt="App Logo" width="128px" height="128px" />
 </p>
 <h1 align="center">E-Commerce App</h1>
 

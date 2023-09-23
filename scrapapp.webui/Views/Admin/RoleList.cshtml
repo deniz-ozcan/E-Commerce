@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <h1 class="h3">Role List</h1>
         <hr>
-        <a class="btn btn-primary btn-sm" href="/admin/role/create">Create Role</a>
+        <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="RoleCreate">Create Role</a>
         <table class="table table-bordered mt-3">
             <thead>
                 <tr>
@@ -23,9 +23,8 @@
                                 <td>@item.Id</td>
                                 <td>@item.Name</td>                              
                                 <td>
-                                    <a href="/Admin/Role/@item.Id" class="btn btn-primary btn-sm mr-2">Edit</a>
-                                    
-                                    <form action="/Admin/Role/Delete" method="POST" style="display: inline;">
+                                    <a class="btn btn-primary btn-sm" asp-controller="Admin" asp-action="RoleEdit" asp-route-id="@item.Id">Edit</a>
+                                    <form asp-controller="Admin" asp-action="DeleteRole" method="POST" style="display: inline;">
                                         <input type="hidden" name="RoleId" value="@item.Id">
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
