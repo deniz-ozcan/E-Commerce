@@ -73,7 +73,7 @@
 <h2 id="howtoinstall">⛓️ How to install</h2>
 
 <p align="justify">
-    There are one easy way to deal with it:
+    There is one easy way to deal with it:
 <ol>
     <li>Build the project with ide or cmd</li>
     <ul>
