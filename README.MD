@@ -50,15 +50,14 @@
 - [ ] Pagination.
 - [ ] Filter the products by their features like Ram, Graphic card, Model, Brand etc.
 - [ ] Admin panels and Cart, Order, User pages styling should be much better.
-  - [ ] Admin Panels
+  - [X] Admin Panels
   - [ ] Cart Pages
   - [ ] Order Pages
   - [ ] User Pages
 
 ### In Progress
-
-- [ ] Filter the products by searching.
-- [ ] Pagination.
+- [ ] Admin panels and Cart, Order, User pages styling should be much better.
+  - [ ] Cart Pages
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 

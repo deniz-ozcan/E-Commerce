@@ -23,19 +23,23 @@ namespace scrapapp.webui.Controllers
         public async Task<IActionResult> UserEdit(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            var selectedRoles = await _userManager.GetRolesAsync(user);
-            var roles = _roleManager.Roles.Select(i => i.Name);
-            ViewBag.Roles = roles;
-            return View(new UserDetailsModel()
+            if (user != null)
             {
-                UserId = user.Id,
-                UserName = user.UserName,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                EmailConfirmed = user.EmailConfirmed,
-                SelectedRoles = selectedRoles
-            });
+                var selectedRoles = await _userManager.GetRolesAsync(user);
+                var roles = _roleManager.Roles.Select(i => i.Name);
+                ViewBag.Roles = roles;
+                return View(new UserDetailsModel()
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    EmailConfirmed = user.EmailConfirmed,
+                    SelectedRoles = selectedRoles
+                });
+            }
+            return RedirectToAction("UserList");
         }
 
         [HttpPost]
@@ -44,19 +48,23 @@ namespace scrapapp.webui.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByIdAsync(model.UserId);
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.UserName = model.UserName;
-                user.Email = model.Email;
-                user.EmailConfirmed = model.EmailConfirmed;
-                var result = await _userManager.UpdateAsync(user);
-                if (result.Succeeded)
+                if (user != null)
                 {
-                    var userRoles = await _userManager.GetRolesAsync(user);
-                    selectedRoles = selectedRoles ?? new string[] { };
-                    await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
-                    await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles).ToArray<string>());
-                }
+                    user.FirstName = model.FirstName;
+                    user.LastName = model.LastName;
+                    user.UserName = model.UserName;
+                    user.Email = model.Email;
+                    user.EmailConfirmed = model.EmailConfirmed;
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        var userRoles = await _userManager.GetRolesAsync(user);
+                        selectedRoles = selectedRoles ?? new string[] { };
+                        await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
+                        await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles).ToArray<string>());
+                        return RedirectToAction("UserList");
+                    }
+                }   
                 return RedirectToAction("UserList");
             }
             return View(model);

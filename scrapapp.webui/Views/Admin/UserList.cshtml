@@ -1,6 +1,6 @@
 @model IEnumerable<User>
 
-@section title {<title>User List | ScrapApp</title>}
+@section title { <title>User List | ScrapApp</title>}
 @section css_files
 {
 <style >
@@ -45,7 +45,7 @@
             <td>@item.Email</td>
             <td>@item.EmailConfirmed</td>
             <td>
-              <a class="btn btn-outline-primary btn-sm" asp-controller="Admin" asp-action="UserUpdate" asp-route-id="@item.Id">Edit</a>
+              <a class="btn btn-outline-primary btn-sm" asp-controller="Admin" asp-action="UserEdit" asp-route-id="@item.Id">Edit</a>
               <form asp-controller="Admin" asp-action="DeleteUser" method="POST" style="display: inline;">
                 <input type="hidden" name="UserId" value="@item.Id">
                 <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
