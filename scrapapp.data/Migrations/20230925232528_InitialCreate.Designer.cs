@@ -11,7 +11,7 @@ using scrapapp.data.Concrete.EfCore;
 namespace scrapapp.data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20230923102535_InitialCreate")]
+    [Migration("20230925232528_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -120,8 +120,8 @@ namespace scrapapp.data.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");

@@ -8,13 +8,13 @@
     <div class="col-9" style="min-width:1050px;">
       <div class="row">
         <div class="d-flex justify-content-end" style="margin-bottom: 5px;">
-              <select class="form-select" style="background-color:#20c997;color:#fff;">
-                <option value="" selected disabled>Sort By</option>
-                <option value="price_asc">High Price</option>
-                <option value="price_desc">Low Price</option>
-                <option value="rate_asc">High Rate</option>
-                <option value="rate_desc">Low Rate</option>
-              </select>
+          <select class="form-select" style="background-color:#20c997;color:#fff;">
+            <option value="" selected disabled>Sort By</option>
+            <option value="price_asc">High Price</option>
+            <option value="price_desc">Low Price</option>
+            <option value="rate_asc">High Rate</option>
+            <option value="rate_desc">Low Rate</option>
+          </select>
         </div>
       </div>
       <div class="card-group">
@@ -33,22 +33,21 @@
             }
             <a asp-controller="Product" asp-action="Detail" asp-route-id="@proc.Id" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
               <div class="card mb-3 me-3 border-info @cls bg-dark popupcard">
-                  <img src="@proc.Image" alt="" class="card-img-top img-fluid img-thumbnail"/>
+                <img src="@proc.Image" alt="" class="card-img-top img-fluid img-thumbnail"/>
                 <div class="card-body">
                   <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">@proc.Brand</p>
                   <p class="card-title fs-6 info" style="color:#fff;display:inline;font-size:1rem;"> 
                     @proc.Model @proc.Ram RAM @proc.Storage SSD @proc.Processor @proc.System @proc.Screen
                   </p>
                 </div>
-                  <div class="card-footer">
-                    <div class="list-group list-group-horizontal">
-                    @if ((int)proc.Rate > 0 ){
-                      <li class="list-group-item p-0 pt-2 itemsing1" style="font-size:1rem;border:none;">
-                        <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
-                          @for (int i = 0; i < (int)proc.Rate ; i++){<li>★</li>}
-                        </ul>
-                      </li>
-                    }
+                <div class="card-footer">
+                  <div class="list-group list-group-horizontal">
+                    <li class="list-group-item p-0 pt-2 itemsing1" style="font-size:1rem;border:none;">
+                      <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
+                        @for (int i = 0; i < (int)proc.Rate ; i++){<li>★</li>}
+                        @for (int k = 0; k < 5 - (int)proc.Rate; k++){<li style="color:#D8D8D8;">★</li>}
+                      </ul>
+                    </li>
                     <li class="list-group-item ms-auto itemsing2" style="font-weight: 700;font-size:1rem;border:none;color:#f27a1a">@((int)proc.Price) ₺</li>
                   </div>
                 </div>
@@ -61,25 +60,25 @@
   </div>
   <nav aria-label="Page navigation" class="mt-6">
     <ul class="pagination justify-content-center">
-        @for (int i = 0; i < Model.PageInfo.TotalPages(); i++)
+      @for (int i = 0; i < Model.PageInfo.TotalPages(); i++)
+      {
+        @if(String.IsNullOrEmpty(Model.PageInfo.CurrentCategory))
         {
-            @if(String.IsNullOrEmpty(Model.PageInfo.CurrentCategory))
-            {
-                <li class="page-item @(Model.PageInfo.CurrentPage==i+1?"active":"")">
-                    <a class="page-link" href="/Products?page=@(i+1)">
-                        @(i+1)
-                    </a>
-                </li>  
-            }
-            else
-            {
-                <li class="page-item @(Model.PageInfo.CurrentPage==i+1?"active":"")">
-                    <a class="page-link" href="/Products/@Model.PageInfo.CurrentCategory?page=@(i+1)">
-                        @(i+1)
-                    </a>
-                </li> 
-            }
+          <li class="page-item @(Model.PageInfo.CurrentPage==i+1?"active":"")">
+            <a class="page-link" href="/Products?page=@(i+1)">
+              @(i+1)
+            </a>
+          </li>  
         }
+        else
+        {
+          <li class="page-item @(Model.PageInfo.CurrentPage==i+1?"active":"")">
+            <a class="page-link" href="/Products/@Model.PageInfo.CurrentCategory?page=@(i+1)">
+              @(i+1)
+            </a>
+          </li> 
+        }
+      }
     </ul>
   </nav>
 </div>

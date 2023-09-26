@@ -13,18 +13,18 @@ namespace scrapapp.webui.Controllers
         {
             this._productService = productService;
         }
-        public async Task<IActionResult> Index(string category, int page = 1)
+        public async Task<IActionResult> Index(string q, int page = 1)
         {
             return View(new ProductViewModel()
             {
                 PageInfo = new PageInfo()
                 {
-                    TotalItems = await _productService.GetProductsCountByCategoryAsync(category),
+                    TotalItems = await _productService.GetProductsCountByCategoryAsync(q),
                     CurrentPage = page,
                     ItemsPerPage = 24,
-                    CurrentCategory = category
+                    CurrentCategory = q
                 },
-                Products = await _productService.GetProductsByCategoryAsync(category, page, 24)
+                Products = await _productService.GetProductsByCategoryAsync(q, page, 24)
             });
         }
         public async Task<IActionResult> Detail(int id)

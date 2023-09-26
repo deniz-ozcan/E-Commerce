@@ -40,20 +40,26 @@
             if (User.IsInRole("Admin"))
             {
               <li class="nav-item">
-                <a asp-controller="Admin" asp-action="Products" class="nav-link">Admin Products</a>
-              </li>
-              <li class="nav-item">
-                <a asp-controller="Admin" asp-action="RoleList" class="nav-link">Roles</a>
-              </li>
-              <li class="nav-item">
-                <a asp-controller="Admin" asp-action="UserList" class="nav-link">Users</a>
+                <a asp-controller="Admin" asp-action="Panel" class="nav-link">Admin Panel</a>
               </li>
             }
           }
         </ul>
+        <form class="ms-auto" asp-controller="Product" asp-action="Index" method="POST">
+          <div class="input-group mb-1 mt-1">
+            <input type="text" name="q" class="form-control" style="background-color:transparent;color:#ffffff;">
+            <button class="btn btn-outline-info" type="submit">Search</button>
+          </div>
+        </form>
         <ul class="navbar-nav ms-auto">
           @if (User.Identity.IsAuthenticated)
           {
+            @* <li class="nav-item">
+              <div class="icon-container">
+                <i class="i-bagg initial-icon"></i>
+                <i class="i-bagg-orange hover-icon"></i>
+              </div>
+            </li> *@
             <li class="nav-item">
               <a class="nav-link"> @User.Identity.Name.ToUpper() </a>
             </li>
@@ -81,65 +87,7 @@
   }
   <footer id="footer" class="py-5 bg-dark text-white text-center mt-3 fs-1">ScrapApp</footer>
   @RenderSection("JavaScript", false)
-  <script>
-    let scs = document.getElementsByClassName("alertsuccess")[0];
-    let dng = document.getElementsByClassName("alertdanger")[0];
-    let wrn = document.getElementsByClassName("alertwarning")[0];
-    let div = document.getElementsByClassName("content")[0];
-    if (scs) {
-      scs.addEventListener("animationend", () => {
-        scs.remove();
-      });
-    }
-    if (dng) {
-      dng.addEventListener("animationend", () => {
-        dng.remove();
-      });
-    }
-    let count = 0;
-    if (wrn) {
-      wrn.addEventListener("animationend", () => {
-        if (count == 0) {
-          if (wrn.innerText == "No Roles") {
-            div.removeChild(div.childNodes[1]);
-            div.insertAdjacentHTML("beforeend",
-              `<div class="row">
-                  <div class="col-md-12">
-                    <div class="text-center p-3">
-                      <h1>Role List</h1>
-                    </div>
-                    <div class="row mt-3">
-                    <div class="col-3 mx-auto">
-                      <div class="alert alert-warning text-center">
-                        ${wrn.innerText}
-                      </div>
-                    </div>
-                  </div>
-                    <div class="container-sm mt-3">
-                      <div class="row justify-content-center">
-                        <a class="col-2 btn btn-outline-primary btn-sm" href="/Admin/Role/Create">Create Role</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>`
-            );
-          } else {
-            div.insertAdjacentHTML("beforeend",
-              `<div class="row mt-3">
-                  <div class="col-3 mx-auto">
-                    <div class="alert alert-warning text-center">
-                      ${wrn.innerText}
-                    </div>
-                  </div>
-                </div>`
-            );
-          }
-        }
-        count++;
-        wrn.remove();
-      });
-    }
-  </script>
+  <script src="~/js/main.js"></script>
   <script src="~/js/bootstrap.js"></script>
 </body>
 

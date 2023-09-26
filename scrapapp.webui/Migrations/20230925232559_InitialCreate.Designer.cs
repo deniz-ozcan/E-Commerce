@@ -11,7 +11,7 @@ using scrapapp.webui.Identity;
 namespace scrapapp.webui.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230923102606_InitialCreate")]
+    [Migration("20230925232559_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

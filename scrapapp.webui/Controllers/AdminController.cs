@@ -39,7 +39,7 @@ namespace scrapapp.webui.Controllers
                     SelectedRoles = selectedRoles
                 });
             }
-            return RedirectToAction("UserList");
+            return RedirectToAction("AdminPanel");
         }
 
         [HttpPost]
@@ -62,15 +62,23 @@ namespace scrapapp.webui.Controllers
                         selectedRoles = selectedRoles ?? new string[] { };
                         await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
                         await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles).ToArray<string>());
-                        return RedirectToAction("UserList");
+                        return RedirectToAction("AdminPanel");
                     }
                 }   
-                return RedirectToAction("UserList");
+                return RedirectToAction("AdminPanel");
             }
             return View(model);
         }
         public IActionResult UserList() => View(_userManager.Users);
         public IActionResult RoleList() => View(_roleManager.Roles);
+        public async Task<IActionResult> AdminPanel(){
+            return View(new AdminPanelModel()
+            {
+                Users = _userManager.Users,
+                Roles =  _roleManager.Roles,
+                Products = await _productService.GetAllProductsAsync()
+            });
+        }
         public IActionResult RoleCreate() => View();
         public async Task<IActionResult> RoleEdit(string id)
         {
@@ -125,7 +133,7 @@ namespace scrapapp.webui.Controllers
                         }
                     }
                 }
-                return RedirectToAction("RoleList");
+                return RedirectToAction("AdminPanel");
             }
             return Redirect("/Admin/Role/" + model.RoleId);
         }
@@ -137,7 +145,7 @@ namespace scrapapp.webui.Controllers
                 var result = await _roleManager.CreateAsync(new IdentityRole(model.Name));
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("RoleList");
+                    return RedirectToAction("AdminPanel");
                 }
                 else
                 {
@@ -165,7 +173,7 @@ namespace scrapapp.webui.Controllers
                 AlertType = "danger"
             };
             TempData["message"] = JsonConvert.SerializeObject(msg);
-            return RedirectToAction("Products");
+            return RedirectToAction("AdminPanel");
         }
 
         public async Task<IActionResult> DeleteRole(string RoleId)
@@ -181,7 +189,7 @@ namespace scrapapp.webui.Controllers
                 AlertType = "danger"
             };
             TempData["message"] = JsonConvert.SerializeObject(msg);
-            return RedirectToAction("RoleList");
+            return RedirectToAction("AdminPanel");
         }
 
         public async Task<IActionResult> DeleteUser(string UserId)
@@ -197,7 +205,7 @@ namespace scrapapp.webui.Controllers
                 AlertType = "danger"
             };
             TempData["message"] = JsonConvert.SerializeObject(msg);
-            return RedirectToAction("UserList");
+            return RedirectToAction("AdminPanel");
         }
     }
 }

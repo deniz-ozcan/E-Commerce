@@ -1,7 +1,4 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using scrapapp.business.Abstract;
 
 namespace scrapapp.webui.Identity
@@ -21,7 +18,6 @@ namespace scrapapp.webui.Identity
             var users = configuration.GetSection("Data:Users");
             foreach (var section in users.GetChildren())
             {
-                Console.WriteLine(section.GetValue<string>("username"));
                 var username = section.GetValue<string>("username");
                 var password = section.GetValue<string>("password");
                 var email = section.GetValue<string>("email");

@@ -30,8 +30,9 @@ namespace scrapapp.webui.Controllers
                 {
                     CartItemId = i.Id,
                     ProductId = i.ProductId,
-                    Name = i.Product.Brand,
-                    Price = (double)i.Product.Price,
+                    Brand = i.Product.Brand,
+                    Model = i.Product.Model,
+                    Price = i.Product.Price,
                     ImageUrl = i.Product.Image,
                     Quantity = i.Quantity
                 }).ToList()
@@ -56,7 +57,6 @@ namespace scrapapp.webui.Controllers
         public IActionResult Checkout()
         {
             var cart = _cartService.GetCartByUserId(_userManager.GetUserId(User));
-
             var orderModel = new OrderModel
             {
                 CartModel = new CartModel()
@@ -66,8 +66,8 @@ namespace scrapapp.webui.Controllers
                     {
                         CartItemId = i.Id,
                         ProductId = i.ProductId,
-                        Name = i.Product.Brand,
-                        Price = (double)i.Product.Price,
+                        Brand = i.Product.Brand,
+                        Price = i.Product.Price,
                         ImageUrl = i.Product.Image,
                         Quantity = i.Quantity
                     }).ToList()
@@ -75,7 +75,6 @@ namespace scrapapp.webui.Controllers
             };
             return View(orderModel);
         }
-
         [HttpPost]
         public IActionResult Checkout(OrderModel model)
         {
@@ -90,8 +89,8 @@ namespace scrapapp.webui.Controllers
                     {
                         CartItemId = i.Id,
                         ProductId = i.ProductId,
-                        Name = i.Product.Brand,
-                        Price = (double)i.Product.Price,
+                        Brand = i.Product.Brand,
+                        Price = i.Product.Price,
                         ImageUrl = i.Product.Image,
                         Quantity = i.Quantity
                     }).ToList()
@@ -128,16 +127,13 @@ namespace scrapapp.webui.Controllers
                     {
                         OrderItemId = i.Id,
                         Name = i.Product.Brand,
-                        Price = (double)i.Price,
+                        Price = i.Price,
                         Quantity = i.Quantity,
                         ImageUrl = i.Product.Image
                     }).ToList()
                 };
-
                 orderListModel.Add(orderModel);
             }
-
-
             return View("Orders", orderListModel);
         }
 
@@ -151,7 +147,7 @@ namespace scrapapp.webui.Controllers
             Order order = new()
             {
                 OrderNumber = new Random().Next(111111, 999999).ToString(),
-                OrderState = EnumOrderState.completed,
+                OrderState = EnumOrderState.Completed,
                 PaymentType = EnumPaymentType.CreditCard,
                 PaymentId = payment.PaymentId,
                 ConversationId = payment.ConversationId,
@@ -164,7 +160,6 @@ namespace scrapapp.webui.Controllers
                 Email = model.Email,
                 City = model.City,
                 Note = model.Note,
-
                 OrderItems = new List<OrderItem>()
             };
 

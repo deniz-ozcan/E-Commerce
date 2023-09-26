@@ -58,7 +58,6 @@ namespace scrapapp.webui
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICartService, CartManager>();
             services.AddScoped<IOrderService, OrderManager>();
@@ -76,7 +75,7 @@ namespace scrapapp.webui
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ICartService cartService)
         {
-            app.UseStaticFiles(); // wwwroot
+            app.UseStaticFiles();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -102,24 +101,19 @@ namespace scrapapp.webui
                     defaults: new { controller = "Cart", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
+                    name: "AdminPanel",
+                    pattern: "Admin/Panel",
+                    defaults: new { controller = "Admin", action = "AdminPanel" }
+                );
+                endpoints.MapControllerRoute(
                     name: "AdminUserEdit",
                     pattern: "Admin/User/{id?}",
                     defaults: new { controller = "Admin", action = "UserUpdate" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "AdminUsers",
-                    pattern: "Admin/User/List",
-                    defaults: new { controller = "Admin", action = "UserList" }
-                );
-                endpoints.MapControllerRoute(
                     name: "AdminRoleEdit",
                     pattern: "Admin/Role/{id?}",
                     defaults: new { controller = "Admin", action = "RoleUpdate" }
-                );
-                endpoints.MapControllerRoute(
-                    name: "AdminRoles",
-                    pattern: "Admin/Role/List",
-                    defaults: new { controller = "Admin", action = "RoleList" }
                 );
                 endpoints.MapControllerRoute(
                     name: "AdminRoleCreate",

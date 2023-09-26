@@ -20,14 +20,20 @@ namespace scrapapp.data.Concrete.EfCore
         {
             return await ShopContext.Products.Include(p => p.Sites).FirstOrDefaultAsync(p => p.Id == Id);
         }
-        public async Task<List<Product>> GetProductsByCategoryAsync(string name, int page, int pageSize)
+        public async Task<List<Product>> GetProductsByCategoryAsync(string q, int page, int pageSize)
         {
-                var products = ShopContext
-                    .Products.Include(i=>i.Sites).OrderBy(p => p.Id)
-                    .AsQueryable();
-                return await products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var products = ShopContext
+                .Products.Include(i=>i.Sites).OrderBy(p => p.Id)
+                .AsQueryable();
+            if (!string.IsNullOrEmpty(q))
+            {
+                products = products
+                    .Include(i=>i.Sites)
+                    .Where(p => p.Brand.ToLower() == q.ToLower());
+            }
+            return await products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
-        public async Task<int> GetProductsCountByCategoryAsync(string category)
+        public async Task<int> GetProductsCountByCategoryAsync(string q)
         {
             return await ShopContext.Products.CountAsync();
         }
