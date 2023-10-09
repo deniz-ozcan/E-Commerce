@@ -19,12 +19,12 @@ namespace scrapapp.webui.Controllers
             {
                 PageInfo = new PageInfo()
                 {
-                    TotalItems = await _productService.GetProductsCountByCategoryAsync(q),
+                    TotalItems = await _productService.GetProductsCount(q),
                     CurrentPage = page,
                     ItemsPerPage = 24,
                     CurrentCategory = q
                 },
-                Products = await _productService.GetProductsByCategoryAsync(q, page, 24)
+                Products = await _productService.GetProducts(q, page, 24)
             });
         }
         public async Task<IActionResult> Detail(int id)

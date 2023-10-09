@@ -47,12 +47,12 @@
 <h2 id="todo">:pencil: TODO</h2>
 
 - [ ] Filter the products by searching.
-- [ ] Pagination.
+- [X] Pagination.
 - [ ] Filter the products by their features like Ram, Graphic card, Model, Brand etc.
 - [X] Admin panels and Cart, Order, User pages styling should be much better.
 
 ### In Progress
-- [ ] Pagination
+- [ ] Filter the products by searching.
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 

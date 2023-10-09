@@ -25,13 +25,13 @@ namespace scrapapp.business.Concrete
         {
             return await _unitofwork.Products.GetByIdAsync(id);
         }
-        public async Task<int>  GetProductsCountByCategoryAsync(string q)
+        public async Task<int>  GetProductsCount(string q)
         {
-            return await _unitofwork.Products.GetProductsCountByCategoryAsync(q);
+            return await _unitofwork.Products.GetProductsCount(q);
         }
-        public async Task<List<Product>>  GetProductsByCategoryAsync(string q, int page, int pageSize)
+        public async Task<List<Product>>  GetProducts(string q, int page, int pageSize)
         {
-            return await _unitofwork.Products.GetProductsByCategoryAsync(q, page, pageSize);
+            return await _unitofwork.Products.GetProducts(q, page, pageSize);
         }
         public async Task UpdateAsync(Product update, Product entity)
         {

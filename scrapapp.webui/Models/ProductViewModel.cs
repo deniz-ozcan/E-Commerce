@@ -13,6 +13,22 @@ namespace scrapapp.webui.Models
         {
             return (int)Math.Ceiling((decimal)TotalItems / ItemsPerPage);
         }
+        public int HasPrevious()
+        {
+            if (CurrentPage > 1)
+            {
+                return 1;
+            }
+            return 0;
+        }
+        public int HasNext()
+        {
+            if (CurrentPage < TotalPages())
+            {
+                return 1;
+            }
+            return 0;
+        }
     }
 
     public class ProductViewModel

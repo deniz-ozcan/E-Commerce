@@ -20,7 +20,7 @@ namespace scrapapp.webapi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ShopContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MsSqlConnection")));
+            services.AddDbContext<ShopContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICartService, CartManager>();
